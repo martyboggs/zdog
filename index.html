@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="node_modules/zdog/dist/zdog.dist.js"></script>
+  <style>
+  body {
+    margin: 0;
+  }
+  </style>
+</head>
+<body>
+
+<canvas class="zdog-canvas" id="zdog-canvas" width="1440" height="840"></canvas>
+<script>
+const TAU = Zdog.TAU; // easier to read constant
+const DTOR = TAU / 360;
+let isSpinning = true;
+var frame = 0;
+
+var keys = { // 1 up, 2 down
+  65: 1,
+  68: 1,
+  83: 1,
+  87: 1,
+};
+
+window.addEventListener('keydown', function (e) {
+  if (keys[e.which] && keys[e.which] !== 2) keys[e.which] = 2;
+});
+window.addEventListener('keyup', function (e) {
+  if (keys[e.which] && keys[e.which] !== 1) keys[e.which] = 1;
+});
+
+function inc(a, b) {
+  return Math.round((b - a) * Math.random() + a);
+}
+let illo = new Zdog.Illustration({
+  element: '.zdog-canvas',
+  dragRotate: true,
+  zoom: 2,
+  rotate: {x: -TAU / 16},
+});
+var frame = 0;
+
+</script>
+<script src="reindeer.js"></script>
+<script>
+var reindeers = [];
+for (var i = 0; i < 1; i += 1) {
+  reindeers.push(new Reindeer());
+}
+
+// little man
+let littleMan = new Zdog.Rect({
+  addTo: reindeers[0].model,
+  stroke: 10,
+  width: 10,
+  height: 10,
+  translate: {x: 0, y: -75},
+  color: '#00ff88',
+});
+let head1 = new Zdog.Shape({
+  addTo: littleMan,
+  stroke: 10,
+  translate: {x: 0, y: -15},
+  color: '#999966',
+});
+let pants = new Zdog.Rect({
+  addTo: littleMan,
+  width: 5,
+  height: 5,
+  stroke: 10,
+  translate: {x: 0, y: 15},
+  color: '#0000ff',
+});
+
+
+function animate() {
+  illo.updateRenderGraph();
+
+  for (var i = 0; i < reindeers.length; i += 1) {
+    reindeers[i].update();
+  }
+
+  frame++;
+  requestAnimationFrame( animate );
+}
+animate();
+</script>
+</body>
+</html>
