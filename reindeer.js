@@ -1,6 +1,7 @@
 class Reindeer {
     constructor() {
         this.goalAngle;
+        this.action = 'walking';
 
         this.speed = {
             x: [1, -1][inc(0,1)],
@@ -60,38 +61,50 @@ class Reindeer {
     }
 
     update() {
-        // bounce off walls
-        if (this.model.translate.x < -300) {
-            this.speed.x = 1 * this.maxSpeed;
-        } else if (this.model.translate.x > 300) {
-            this.speed.x = -1 * this.maxSpeed;
+        switch (this.action) {
+            case 'walking':
+                // bounce off walls
+                if (this.model.translate.x < -300) {
+                    this.speed.x = 1 * this.maxSpeed;
+                } else if (this.model.translate.x > 300) {
+                    this.speed.x = -1 * this.maxSpeed;
+                }
+                if (this.model.translate.z < -300) {
+                    this.speed.z = 1 * this.maxSpeed;
+                } else if (this.model.translate.z > 300) {
+                    this.speed.z = -1 * this.maxSpeed;
+                }
+
+                // rotate reindeer
+                this.model.rotate.y = Math.atan2(this.speed.z, this.speed.x);
+                // this.goalAngle = Math.atan2(this.speed.z, this.speed.x);
+                // if (this.model.rotate.y < this.goalAngle) {
+                //     this.model.rotate.y += TAU/90;
+                // } else {
+                //     this.model.rotate.y -= TAU/90;
+                // }
+
+                // move reindeer
+                this.model.translate.x += this.speed.x;
+                this.model.translate.z += this.speed.z;
+
+                // bob head
+                this.head.translate.y = 5 * Math.cos(frame * this.maxSpeed / 15) - 60;
+
+                // move legs
+                for (var i = 0; i < this.legs.length; i += 1) {
+                    this.legs[i].rotate.z = (Math.abs((frame + i * 20) % 60 - 30) - 15) * DTOR;
+                }
+            break;
+            case 'reading':
+                for (var i = 0; i < this.legs.length; i += 1) {
+                    if (this.legs[i].rotate.z > -60 * DTOR) {
+                        this.legs[i].rotate.z -= 1 * DTOR;
+                    }
+                }
+            break;
         }
 
-        if (this.model.translate.z < -300) {
-            this.speed.z = 1 * this.maxSpeed;
-        } else if (this.model.translate.z > 300) {
-            this.speed.z = -1 * this.maxSpeed;
-        }
 
-        // rotate reindeer
-        this.model.rotate.y = Math.atan2(this.speed.z, this.speed.x);
-        // this.goalAngle = Math.atan2(this.speed.z, this.speed.x);
-        // if (this.model.rotate.y < this.goalAngle) {
-        //     this.model.rotate.y += TAU/90;
-        // } else {
-        //     this.model.rotate.y -= TAU/90;
-        // }
-
-        // move reindeer
-        this.model.translate.x += this.speed.x;
-        this.model.translate.z += this.speed.z;
-
-        // bob head
-        this.head.translate.y = 5 * Math.cos(frame * this.maxSpeed / 15) - 60;
-
-        // move legs
-        for (var i = 0; i < this.legs.length; i += 1) {
-            this.legs[i].rotate.z = (Math.abs((frame + i * 20) % 60 - 30) - 15) * DTOR;
-        }
     }
 }

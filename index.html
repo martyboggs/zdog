@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="node_modules/zdog/dist/zdog.dist.js"></script>
+  <!-- <script src="node_modules/zdog/dist/zdog.dist.js"></script> -->
+  <script src="zdog.dist.js"></script>
   <style>
   body {
     margin: 0;
@@ -34,6 +35,12 @@ window.addEventListener('keyup', function (e) {
 function inc(a, b) {
   return Math.round((b - a) * Math.random() + a);
 }
+
+var zdogCanvas = document.getElementById('zdog-canvas');
+zdogCanvas.width = innerWidth;
+zdogCanvas.height = innerHeight;
+document.body.style.height = innerHeight + 'px';
+
 let illo = new Zdog.Illustration({
   element: '.zdog-canvas',
   dragRotate: true,
@@ -41,12 +48,11 @@ let illo = new Zdog.Illustration({
   rotate: {x: -TAU / 16},
 });
 var frame = 0;
-
 </script>
 <script src="reindeer.js"></script>
 <script>
 var reindeers = [];
-for (var i = 0; i < 1; i += 1) {
+for (var i = 0; i < 10; i += 1) {
   reindeers.push(new Reindeer());
 }
 
