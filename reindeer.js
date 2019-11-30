@@ -5,7 +5,7 @@ class Reindeer {
 
         this.speed = {
             x: [1, -1][inc(0,1)],
-            y: 1,
+            y: 0,
             z: [1, -1][inc(0,1)],
         };
         this.maxSpeed = 1 + Math.random();
@@ -13,7 +13,7 @@ class Reindeer {
             addTo: illo,
             width: 80,
             height: 20,
-            translate: { x: inc(-200, 200), z: inc(-200, 200) },
+            translate: { x: inc(-200, 200), y: -105, z: inc(-200, 200) },
             rotate: {y: inc(1, 360) * DTOR},
             stroke: 90,
             color: '#882' + String(inc(100, 999)),
