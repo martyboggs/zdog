@@ -8,7 +8,7 @@ class Grass {
             translate: { x: inc(-300, 300), y: -15, z: inc(-300, 300) },
             rotate: {y: inc(1, 360) * DTOR},
             stroke: 30,
-            color: '#00' + String(inc(10, 99)) + '00',
+            color: '#00' + String(inc(66, 99)) + '00',
             fill: true,
         });
     }
