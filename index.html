@@ -7,10 +7,16 @@
   body {
     margin: 0;
   }
+  #fps {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 5px;
+  }
   </style>
 </head>
 <body>
-
+<div id="fps"></div>
 <canvas class="zdog-canvas" id="zdog-canvas" width="800" height="600"></canvas>
 <script src="game.js"></script>
 <script src="little-man.js"></script>
@@ -28,15 +34,17 @@ for (var i = 0; i < 10; i += 1) {
 var man = new LittleMan();
 reindeers[0].model.addChild(man.model);
 
-function animate() {
+var averageTimePerFrame = 0;
+var time = 0;
+function animate(timestamp) {
   var things = reindeers.concat(grasses)
   for (var i = 0; i < things.length; i += 1) {
     things[i].update();
   }
 
-  frame++;
   illo.updateRenderGraph();
-  requestAnimationFrame( animate );
+  frame = requestAnimationFrame( animate );
+  document.getElementById('fps').innerHTML = frame / timestamp * 1000;
 }
 animate();
 </script>
