@@ -31,6 +31,6 @@ let illo = new Zdog.Illustration({
   dragRotate: true,
   zoom: 2,
   rotate: {x: -TAU / 16},
-  translate: {y: 100},
+  translate: {y: 80},
 });
 var frame = 0;
