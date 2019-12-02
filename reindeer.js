@@ -36,6 +36,40 @@ class Reindeer {
             stroke: 10,
             color: '#000',
         });
+
+        this.eye = new Zdog.Shape({
+            addTo: this.head,
+            rotate: {y: TAU / 4},
+            stroke: 5,
+            fill: true,
+            translate: {x: 30, y: -5, z: 15},
+        });
+
+        this.eye2 = new Zdog.Shape({
+            addTo: this.head,
+            rotate: {y: TAU / 4},
+            stroke: 5,
+            fill: true,
+            translate: {x: 30, y: -5, z: -15},
+        });
+
+        this.nose = new Zdog.Shape({
+            addTo: this.head,
+            rotate: {y: TAU / 4},
+            stroke: 10,
+            fill: true,
+            translate: {x: 40, y: 10},
+        });
+
+        this.mouth = new Zdog.Rect({
+            addTo: this.head,
+            width: 30,
+            height: 1,
+            rotate: {y: TAU / 4},
+            stroke: 2,
+            fill: true,
+            translate: {x: 26, y: 25}
+        });
         
         this.legs = [];
         for (var i = 0; i < 4; i += 1) {
