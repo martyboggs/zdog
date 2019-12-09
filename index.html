@@ -1,53 +1,107 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- <script src="node_modules/zdog/dist/zdog.dist.js"></script> -->
-  <script src="zdog.dist.js"></script>
-  <style>
-  body {
-    margin: 0;
-  }
-  #fps {
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 5px;
-  }
-  </style>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- <script src="node_modules/zdog/dist/zdog.dist.js"></script> -->
+	<script src="zdog.dist.js"></script>
+	<style>
+	body {
+		margin: 0;
+		background: #431515;
+	}
+	#fps {
+		position: fixed;
+		top: 0;
+		left: 0;
+		padding: 5px;
+	}
+	</style>
 </head>
 <body>
 <div id="fps"></div>
 <canvas class="zdog-canvas" id="zdog-canvas" width="800" height="600"></canvas>
 <script src="game.js"></script>
-<script src="little-man.js"></script>
-<script src="reindeer.js"></script>
-<script src="grass.js"></script>
+<script src="objects/little-man.js"></script>
+<script src="objects/player.js"></script>
+<script src="objects/reindeer.js"></script>
+<script src="objects/grass.js"></script>
 <script>
-var reindeers = [];
-var grasses = [];
-for (var i = 0; i < 3; i += 1) {
-  reindeers.push(new Reindeer());
+var nonPlayers = {
+	reindeers: [],
+	grasses: [],
+	men: []
+};
+var room = {x: 1, z: 1};
+var map = [
+	[{}, {}, {}],
+	[{}, {}, {}],
+	[{}, {}, {}],
+];
+function changeRoom(x, z) {
+	if (!map[room.z + z] || !map[room.z + z][room.x + x]) return;
+
+	room.x += x;
+	room.z += z;
+	console.log(room);
+
+	if (z === 1) {
+		player.model.translate.z = -290;
+	} else if (z === -1) {
+		player.model.translate.z = 290;
+	}
+
+	var obj = map[room.z][room.x];
+
+	// remove nonPlayers
+	for (var nonPlayer in nonPlayers) {
+		for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
+			nonPlayers[nonPlayer][i].model.remove();
+		}
+		nonPlayers[nonPlayer].length = 0;
+	}
+
+	// grow grass
+	for (var i = 0; i < 10; i += 1) {
+		nonPlayers.grasses.push(new Grass());
+	}
 }
-for (var i = 0; i < 10; i += 1) {
-  grasses.push(new Grass());
-}
-var man = new LittleMan();
-reindeers[0].model.addChild(man.model);
-reindeers[0].nose.color = '#ff0000';
+changeRoom(0, 0);
+// nonPlayers.men.push(new LittleMan());
+// nonPlayers.men[0].model.translate.y = -50;
+// nonPlayers.reindeers[0].model.addChild(nonPlayers.men[0].model);
+// nonPlayers.reindeers[0].nose.color = '#ff0000';
+
+var player = new Player();
 
 var averageTimePerFrame = 0;
 var time = 0;
 function animate(timestamp) {
-  var things = reindeers.concat(grasses)
-  for (var i = 0; i < things.length; i += 1) {
-    things[i].update();
-  }
+	for (var nonPlayer in nonPlayers) {
+		for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
+			nonPlayers[nonPlayer][i].update();
+		}
+	}
+	player.update();
 
-  illo.updateRenderGraph();
-  frame = requestAnimationFrame( animate );
-  // document.getElementById('fps').innerHTML = frame / timestamp * 1000;
+	if (nonPlayers.reindeers.length < 5) {
+		nonPlayers.reindeers.push(new Reindeer());
+	}
+
+	illo.translate.x = -player.model.translate.x;
+
+	illo.updateRenderGraph();
+	frame = requestAnimationFrame( animate );
+	// document.getElementById('fps').innerHTML = frame / timestamp * 1000;
 }
+
+function collision(a, b, distance) {
+	if (a.translate.x > b.translate.x - distance && a.translate.x < b.translate.x + distance &&
+	a.translate.z > b.translate.z - distance && a.translate.z < b.translate.z + distance) {
+		return true;
+	}
+	return false;
+}
+
 animate();
 </script>
 </body>

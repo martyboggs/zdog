@@ -28,7 +28,7 @@ document.body.style.height = innerHeight - 1 + 'px';
 
 let illo = new Zdog.Illustration({
   element: '.zdog-canvas',
-  dragRotate: true,
+  // dragRotate: true,
   zoom: 2,
   rotate: {x: -TAU / 16},
   translate: {y: 80},
