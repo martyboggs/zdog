@@ -24,51 +24,13 @@
 <script src="objects/little-man.js"></script>
 <script src="objects/player.js"></script>
 <script src="objects/reindeer.js"></script>
-<script src="objects/grass.js"></script>
+<script src="objects/plant.js"></script>
+<script src="objects/effect.js"></script>
+<script src="change-room.js"></script>
 <script>
-var nonPlayers = {
-	reindeers: [],
-	grasses: [],
-	men: []
-};
-var room = {x: 1, z: 1};
-var map = [
-	[{}, {}, {}],
-	[{}, {}, {}],
-	[{}, {}, {}],
-];
-function changeRoom(x, z) {
-	if (!map[room.z + z] || !map[room.z + z][room.x + x]) return;
-
-	room.x += x;
-	room.z += z;
-	console.log(room);
-
-	if (z === 1) {
-		player.model.translate.z = -290;
-	} else if (z === -1) {
-		player.model.translate.z = 290;
-	}
-
-	var obj = map[room.z][room.x];
-
-	// remove nonPlayers
-	for (var nonPlayer in nonPlayers) {
-		for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
-			nonPlayers[nonPlayer][i].model.remove();
-		}
-		nonPlayers[nonPlayer].length = 0;
-	}
-
-	// grow grass
-	for (var i = 0; i < 10; i += 1) {
-		nonPlayers.grasses.push(new Grass());
-	}
-}
-changeRoom(0, 0);
-// nonPlayers.men.push(new LittleMan());
-// nonPlayers.men[0].model.translate.y = -50;
-// nonPlayers.reindeers[0].model.addChild(nonPlayers.men[0].model);
+// nonPlayers.littleMans.push(new LittleMan());
+// nonPlayers.littleMans[0].model.translate.y = -50;
+// nonPlayers.reindeers[0].model.addChild(nonPlayers.littleMans[0].model);
 // nonPlayers.reindeers[0].nose.color = '#ff0000';
 
 var player = new Player();
@@ -83,9 +45,9 @@ function animate(timestamp) {
 	}
 	player.update();
 
-	if (nonPlayers.reindeers.length < 5) {
-		nonPlayers.reindeers.push(new Reindeer());
-	}
+	// if (nonPlayers.reindeers.length < 5) {
+	// 	nonPlayers.reindeers.push(new Reindeer());
+	// }
 
 	illo.translate.x = -player.model.translate.x;
 

@@ -9,8 +9,8 @@ class LittleMan {
 			stroke: 10,
 			width: 5,
 			height: 5,
-			translate: {y: -29},
-			rotate: {y: TAU / 4},
+			translate: { x: inc(-200, 200), y: -28, z: inc(-200, 200) },	
+			rotate: {y: Math.random() * TAU},
 			color: '#00ff88',
 		});
 		this.head = new Zdog.Shape({
