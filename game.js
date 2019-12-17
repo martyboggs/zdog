@@ -10,6 +10,9 @@ var keys = { // 1 up, 2 down
 	87: 1,
 	74: 1, // j
 };
+var score = {
+	points: 0
+};
 
 window.addEventListener('keydown', function (e) {
 	if (keys[e.which] && keys[e.which] !== 2) keys[e.which] = 2;
@@ -29,7 +32,7 @@ document.body.style.height = innerHeight - 1 + 'px';
 
 let illo = new Zdog.Illustration({
 	element: '.zdog-canvas',
-	// dragRotate: true,
+	dragRotate: true,
 	zoom: 2,
 	rotate: {x: -TAU / 16},
 	translate: {y: 80},

@@ -54,7 +54,6 @@ function changeRoom(x, z) {
 	for (var prop in obj) {
 		if (nonPlayers[prop]) {
 			for (var i = 0; i < obj[prop] - 1; i += 1) {
-				console.log(prop.charAt(0).toUpperCase() + prop.slice(1, -1));
 				nonPlayers[prop].push(eval('new ' + prop.charAt(0).toUpperCase() + prop.slice(1, -1) + '()'));
 			}
 		}

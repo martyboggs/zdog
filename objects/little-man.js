@@ -3,13 +3,16 @@ class LittleMan {
 		this.speed = 0;
 		this.maxSpeed = 5;
 		this.dir = 0;
+		this.ySpeed = 0;
+		this.y0 = -25;
+		this.action = 'walking';
 
 		this.model = new Zdog.Rect({
 			addTo: illo,
 			stroke: 10,
 			width: 5,
 			height: 5,
-			translate: { x: inc(-200, 200), y: -28, z: inc(-200, 200) },	
+			translate: { x: inc(-200, 200), y: this.y0, z: inc(-200, 200) },
 			rotate: {y: Math.random() * TAU},
 			color: '#00ff88',
 		});
@@ -46,7 +49,11 @@ class LittleMan {
 	}
 
 	update() {
-		this.arm1.rotate.x += DTOR * 5;
-		this.arm2.rotate.x += DTOR * 5;
+		switch (this.action) {
+			case 'walking':
+				this.arm1.rotate.x += DTOR * 5;
+				this.arm2.rotate.x += DTOR * 5;
+			break;
+		}
 	}
 }

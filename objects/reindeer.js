@@ -5,13 +5,14 @@ class Reindeer {
 		this.turn = inc(-1, 1);
 		this.speed;
 		this.maxSpeed = 0.5 + 0.5 * Math.random();
+		this.y0 = -52;
 		this.ySpeed = 0;
 
 		this.model = new Zdog.Rect({
 			addTo: illo,
 			width: 40,
 			height: 10,
-			translate: { x: inc(-200, 200), y: -52, z: inc(-200, 200) },
+			translate: { x: inc(-200, 200), y: this.y0, z: inc(-200, 200) },
 			rotate: {y: Math.random() * TAU},
 			stroke: 45,
 			color: '#882' + String(inc(100, 999)),
@@ -141,14 +142,6 @@ class Reindeer {
 				// move reindeer
 				this.model.translate.x += this.speed * Math.cos(this.model.rotate.y);
 				this.model.translate.z += this.speed * Math.sin(this.model.rotate.y);
-				// gravity
-				if (this.model.translate.y < -52) {
-					this.ySpeed += 0.5;
-					this.model.translate.y += this.ySpeed;
-				} else {
-					this.ySpeed = 0;
-					this.model.translate.y = -52;
-				}
 			break;
 			case 'reading':
 				for (var i = 0; i < this.legs.length; i += 1) {
@@ -157,11 +150,6 @@ class Reindeer {
 					}
 				}
 			break;
-			case 'floating':
-				this.model.translate.y -= 0.5;
-			break;
 		}
-
-		this.action = 'walking';
 	}
 }
