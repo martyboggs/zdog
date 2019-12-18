@@ -1,6 +1,7 @@
 class Player extends LittleMan {
 	constructor() {
 		super();
+		this.stunnedTimer = 0;
 
 		new Zdog.Rect({
 			addTo: this.head,
@@ -29,10 +30,10 @@ class Player extends LittleMan {
 
 	update() {
 		if (keys[65] === 2) {
-			this.dir -= (this.speed >= 0 ? 3 : -3) * DTOR;
+			this.dir -= 3 * DTOR;
 		}
 		if (keys[68] === 2) {
-			this.dir += (this.speed >= 0 ? 3 : -3) * DTOR;
+			this.dir += 3 * DTOR;
 		}
 		this.speed = 0;
 		if (keys[83] === 2) {
@@ -93,5 +94,7 @@ class Player extends LittleMan {
 		} else if (this.model.translate.x > 350) {
 			changeRoom(1, 0);
 		}
+
+		if (this.stunnedTimer) this.stunnedTimer -= 1;
 	}
 }

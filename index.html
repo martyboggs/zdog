@@ -10,6 +10,8 @@
 		background: #431515;
 	}
 	#fps {
+		color: white;
+		font-family: sans-serif;
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -18,10 +20,14 @@
 	</style>
 </head>
 <body>
-<div id="fps"></div>
+<div id="fps">
+	<div>Health: <span id="health"></span></div>
+	<div>Lives: <span id="lives"></span></div>
+</div>
 <canvas class="zdog-canvas" id="zdog-canvas" width="800" height="600"></canvas>
 <script src="game.js"></script>
 <script src="objects/little-man.js"></script>
+<script src="objects/bad-guy.js"></script>
 <script src="objects/player.js"></script>
 <script src="objects/reindeer.js"></script>
 <script src="objects/plant.js"></script>

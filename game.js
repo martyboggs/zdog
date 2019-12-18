@@ -11,8 +11,32 @@ var keys = { // 1 up, 2 down
 	74: 1, // j
 };
 var score = {
-	points: 0
+	points: 0,
+	health: 10,
+	lives: 3,
 };
+document.getElementById('health').innerHTML = score.health;
+document.getElementById('lives').innerHTML = score.lives;
+
+function updateHealth(change) {
+	score.health += change;
+	if (score.health <= 0) {
+		score.health = 0;
+		if (score.lives > 0) {
+			score.health = 10;
+		}
+		updateLives(-1);
+	}
+	document.getElementById('health').innerHTML = score.health;
+}
+function updateLives(change) {
+	score.lives += change;
+	if (score.lives <= 0) {
+		score.lives = 0;
+		// game over
+	}
+	document.getElementById('lives').innerHTML = score.lives;
+}
 
 window.addEventListener('keydown', function (e) {
 	if (keys[e.which] && keys[e.which] !== 2) keys[e.which] = 2;
@@ -43,5 +67,6 @@ var nonPlayers = {
 	reindeers: [],
 	plants: [],
 	littleMans: [],
+	badGuys: [],
 	effects: [],
 };

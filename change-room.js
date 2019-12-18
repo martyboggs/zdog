@@ -1,7 +1,7 @@
 var room = {x: 1, z: 1};
 var map = [
 	[{reindeers: 10}, {littleMans: 10}, {}],
-	[{reindeers: 4}, {reindeers: 3}, {}],
+	[{reindeers: 4}, {reindeers: 3}, {badGuys: 5, reindeers: 2, littleMans: 4}],
 	[{}, {}, {reindeers: 5}],
 ];
 function changeRoom(x, z) {
