@@ -10,6 +10,7 @@ class BadGuy extends LittleMan {
 	}
 
 	update() {
+		// walk toward player
 		if (this.action === 'walking') {
 			this.model.rotate.y = Math.atan2(
 				player.model.translate.z - this.model.translate.z,
@@ -19,12 +20,15 @@ class BadGuy extends LittleMan {
 			this.model.translate.z += this.maxSpeed * Math.sin(this.model.rotate.y);
 		}
 
-		if (!player.stunnedTimer && collision(this.model, player.model, 10)) {
-			updateHealth(-1);
-			player.stunnedTimer = 30;
+		// collision with player
+		if (this.action !== 'floating-away') {
+			if (!player.stunnedTimer && collision(this.model, player.model, 10)) {
+				updateHealth(-1);
+				player.stunnedTimer = 30;
 
-			player.model.translate.x += 30 * Math.cos(this.model.rotate.y);
-			player.model.translate.z += 30 * Math.sin(this.model.rotate.y);
+				player.model.translate.x += 30 * Math.cos(this.model.rotate.y);
+				player.model.translate.z += 30 * Math.sin(this.model.rotate.y);
+			}
 		}
 
 		// face forward

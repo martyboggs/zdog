@@ -62,6 +62,7 @@ class Player extends LittleMan {
 			for (var nonPlayer in nonPlayers) {
 				if (nonPlayer === 'plants' || nonPlayer === 'effects') continue;
 				for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
+					if (nonPlayers[nonPlayer][i].action === 'floating-away') continue;
 					if (collision(this.model, nonPlayers[nonPlayer][i].model, 100)) {
 						if (!nonPlayers[nonPlayer][i].effect) {
 							nonPlayers[nonPlayer][i].effect = new Effect('magic', nonPlayers[nonPlayer][i]);
