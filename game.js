@@ -12,30 +12,43 @@ var keys = { // 1 up, 2 down
 };
 var score = {
 	points: 0,
-	health: 10,
+	health: 5,
 	lives: 3,
 };
 document.getElementById('health').innerHTML = score.health;
 document.getElementById('lives').innerHTML = score.lives;
 
 function updateHealth(change) {
+	if (score.lives < 0) return;
 	score.health += change;
 	if (score.health <= 0) {
 		score.health = 0;
 		if (score.lives > 0) {
-			score.health = 10;
+			score.health = 5;
 		}
+		showMessage('You died');
 		updateLives(-1);
+		changeRoom(1, 1);
+		player.model.translate.x = 0;
+		player.model.translate.z = 0;
 	}
 	document.getElementById('health').innerHTML = score.health;
 }
 function updateLives(change) {
 	score.lives += change;
-	if (score.lives <= 0) {
-		score.lives = 0;
-		// game over
+	if (score.lives < 0) {
+		showMessage('Game Over');
 	}
-	document.getElementById('lives').innerHTML = score.lives;
+	if (score.lives >= 0) {
+		document.getElementById('lives').innerHTML = score.lives;
+	}
+}
+function showMessage(message) {
+	var m = document.getElementById('messages');
+	m.innerHTML = message;
+	setTimeout(function () {
+		m.innerHTML = '';
+	}, 5000);
 }
 
 window.addEventListener('keydown', function (e) {

@@ -1,15 +1,18 @@
 class Effect {
 	constructor(type, parent) {
 		this.type = type;
-console.log(type);
+		this.parent = parent;
+		this.start = frame;
+
 		if (this.type === 'magic') {
-			this.circle1 = new Zdog.Ellipse({
-				// addTo: parent,
+			this.model = new Zdog.Ellipse({
+				addTo: illo,
 				diameter: 35,
-				rotate: { z: TAU/4, y: TAU/4},
-				translate: {x: parent.translate.x, z: parent.translate.z},
-				stroke: 5,
-				color: '#fff',
+				rotate: { x: TAU/4},
+				translate: {x: parent.model.translate.x, y: -2, z: parent.model.translate.z},
+				stroke: 2,
+				color: '#ffffff99',
+				scale: {x: 0, y: 0},
 			});
 		}
 	}
@@ -17,7 +20,13 @@ console.log(type);
 	update() {
 		switch (this.type) {
 			case 'magic':
-				// this.circle1.diameter += 0.1;
+				this.model.scale.x += 0.1;
+				this.model.scale.y += 0.1;
+
+				if ((frame - this.start) % 14 === 0) {
+					this.model.scale.x = 0;
+					this.model.scale.y = 0;
+				}
 			break;
 		}
 

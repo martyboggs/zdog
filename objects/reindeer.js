@@ -107,16 +107,6 @@ class Reindeer {
 				if (!collision(this.model, {translate: {x: 0, z: 0}}, 300)) {
 					this.destroy();
 				}
-				// if (this.model.translate.x < -300) {
-				//     this.destroy();
-				// } else if (this.model.translate.x > 300) {
-				//     this.destroy();
-				// }
-				// if (this.model.translate.z < -300) {
-				//     this.destroy();
-				// } else if (this.model.translate.z > 300) {
-				//     this.destroy();
-				// }
 
 				// // reindeer collision
 				// var obstacles = nonPlayers.reindeers.concat(player);

@@ -8,30 +8,39 @@
 	body {
 		margin: 0;
 		background: #431515;
+		font-family: sans-serif;
 	}
 	#fps {
 		color: white;
-		font-family: sans-serif;
 		position: fixed;
 		top: 0;
 		left: 0;
 		padding: 5px;
 	}
+	#messages {
+		color: white;
+		position: fixed;
+		width: 100%;
+		text-align: center;
+		font-size: 30px;
+		top: 30px;
+	}
 	</style>
 </head>
 <body>
+<div id="messages"></div>
 <div id="fps">
 	<div>Health: <span id="health"></span></div>
 	<div>Lives: <span id="lives"></span></div>
 </div>
 <canvas class="zdog-canvas" id="zdog-canvas" width="800" height="600"></canvas>
 <script src="game.js"></script>
+<script src="objects/effect.js"></script>
 <script src="objects/little-man.js"></script>
 <script src="objects/bad-guy.js"></script>
 <script src="objects/player.js"></script>
 <script src="objects/reindeer.js"></script>
 <script src="objects/plant.js"></script>
-<script src="objects/effect.js"></script>
 <script src="change-room.js"></script>
 <script>
 // nonPlayers.littleMans.push(new LittleMan());
@@ -40,6 +49,7 @@
 // nonPlayers.reindeers[0].nose.color = '#ff0000';
 
 var player = new Player();
+changeRoom(1, 1);
 
 var averageTimePerFrame = 0;
 var time = 0;

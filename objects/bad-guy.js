@@ -2,7 +2,7 @@ class BadGuy extends LittleMan {
 	constructor() {
 		super();
 		
-		this.maxSpeed = Math.random() + 0.5;
+		this.maxSpeed = 0.5 * Math.random() + 0.5;
 
 		this.model.color = 'red';
 		this.arm1.color = 'red';
@@ -22,6 +22,9 @@ class BadGuy extends LittleMan {
 		if (!player.stunnedTimer && collision(this.model, player.model, 10)) {
 			updateHealth(-1);
 			player.stunnedTimer = 30;
+
+			player.model.translate.x += 30 * Math.cos(this.model.rotate.y);
+			player.model.translate.z += 30 * Math.sin(this.model.rotate.y);
 		}
 
 		// face forward
