@@ -18,6 +18,9 @@ class BadGuy extends LittleMan {
 			);
 			this.model.translate.x += this.maxSpeed * Math.cos(this.model.rotate.y);
 			this.model.translate.z += this.maxSpeed * Math.sin(this.model.rotate.y);
+
+			// face forward
+			this.model.rotate.y = this.model.rotate.y + TAU / 4;
 		}
 
 		// collision with player
@@ -31,7 +34,5 @@ class BadGuy extends LittleMan {
 			}
 		}
 
-		// face forward
-		this.model.rotate.y = this.model.rotate.y + TAU / 4;
 	}
 }

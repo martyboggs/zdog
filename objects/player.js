@@ -2,6 +2,8 @@ class Player extends LittleMan {
 	constructor() {
 		super();
 		this.stunnedTimer = 0;
+		this.health = 5;
+		this.lives = 3;
 
 		new Zdog.Rect({
 			addTo: this.head,

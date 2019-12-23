@@ -10,21 +10,14 @@ var keys = { // 1 up, 2 down
 	87: 1,
 	74: 1, // j
 };
-var score = {
-	points: 0,
-	health: 5,
-	lives: 3,
-};
-document.getElementById('health').innerHTML = score.health;
-document.getElementById('lives').innerHTML = score.lives;
 
 function updateHealth(change) {
-	if (score.lives < 0) return;
-	score.health += change;
-	if (score.health <= 0) {
-		score.health = 0;
-		if (score.lives > 0) {
-			score.health = 5;
+	if (player.lives < 0) return;
+	player.health += change;
+	if (player.health <= 0) {
+		player.health = 0;
+		if (player.lives > 0) {
+			player.health = 5;
 		}
 		showMessage('You died');
 		updateLives(-1);
@@ -32,15 +25,15 @@ function updateHealth(change) {
 		player.model.translate.x = 0;
 		player.model.translate.z = 0;
 	}
-	document.getElementById('health').innerHTML = score.health;
+	document.getElementById('health').innerHTML = player.health;
 }
 function updateLives(change) {
-	score.lives += change;
-	if (score.lives < 0) {
+	player.lives += change;
+	if (player.lives < 0) {
 		showMessage('Game Over');
 	}
-	if (score.lives >= 0) {
-		document.getElementById('lives').innerHTML = score.lives;
+	if (player.lives >= 0) {
+		document.getElementById('lives').innerHTML = player.lives;
 	}
 }
 function showMessage(message) {
