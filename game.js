@@ -36,12 +36,17 @@ function updateLives(change) {
 		document.getElementById('lives').innerHTML = player.lives;
 	}
 }
-function showMessage(message) {
+function updatePower(change) {
+	player.power += change;
+	if (player.power > 10000) player.power = 10000;
+	document.getElementById('power').innerHTML = player.power;
+}
+function showMessage(message, time) {
 	var m = document.getElementById('messages');
 	m.innerHTML = message;
 	setTimeout(function () {
 		m.innerHTML = '';
-	}, 5000);
+	}, time ? time : 5000);
 }
 
 window.addEventListener('keydown', function (e) {
@@ -68,11 +73,3 @@ let illo = new Zdog.Illustration({
 	translate: {y: 80},
 });
 var frame = 0;
-
-var nonPlayers = {
-	reindeers: [],
-	plants: [],
-	littleMans: [],
-	badGuys: [],
-	effects: [],
-};

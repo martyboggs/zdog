@@ -1,10 +1,10 @@
-class LittleMan {
+class LittleGuy {
 	constructor() {
 		this.speed = 0;
 		this.maxSpeed = 5;
 		this.dir = 0;
 		this.ySpeed = 0;
-		this.y0 = -25;
+		this.y0 = -24;
 		this.action = 'walking';
 
 		this.model = new Zdog.Rect({

@@ -1,7 +1,7 @@
 var room = {x: 1, z: 1};
 var map = [
-	[{reindeers: 10}, {littleMans: 10}, {}],
-	[{reindeers: 4},  {reindeers: 3},   {badGuys: 5, reindeers: 2, littleMans: 4}],
+	[{reindeers: 10}, {steves: 1}, {}],
+	[{reindeers: 4},  {reindeers: 3, snails: 15},   {badGuys: 5, reindeers: 2, littleGuys: 4}],
 	[{},              {},               {reindeers: 5}],
 	[null,            {},               null],
 ];
@@ -54,7 +54,7 @@ function changeRoom(x, z) {
 	// add objects
 	for (var prop in obj) {
 		if (nonPlayers[prop]) {
-			for (var i = 0; i < obj[prop] - 1; i += 1) {
+			for (var i = 0; i < obj[prop]; i += 1) {
 				nonPlayers[prop].push(eval('new ' + prop.charAt(0).toUpperCase() + prop.slice(1, -1) + '()'));
 			}
 		}

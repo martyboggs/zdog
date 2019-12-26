@@ -2,7 +2,7 @@ class Reindeer {
 	constructor() {
 		this.goalAngle;
 		this.action = 'walking';
-		this.turn = inc(-1, 1);
+		this.turn = Math.random() > 0.5 ? 1 : -1;
 		this.speed;
 		this.maxSpeed = 0.5 + 0.5 * Math.random();
 		this.y0 = -52;
@@ -103,10 +103,10 @@ class Reindeer {
 
 		switch (this.action) {
 			case 'walking':
-				// remove
-				if (!collision(this.model, {translate: {x: 0, z: 0}}, 300)) {
-					this.destroy();
-				}
+				// // remove
+				// if (!collision(this.model, {translate: {x: 0, z: 0}}, 300)) {
+				// 	this.destroy();
+				// }
 
 				// // reindeer collision
 				// var obstacles = nonPlayers.reindeers.concat(player);

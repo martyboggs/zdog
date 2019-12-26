@@ -1,4 +1,4 @@
-class BadGuy extends LittleMan {
+class BadGuy extends LittleGuy {
 	constructor() {
 		super();
 		
@@ -20,7 +20,7 @@ class BadGuy extends LittleMan {
 			this.model.translate.z += this.maxSpeed * Math.sin(this.model.rotate.y);
 
 			// face forward
-			this.model.rotate.y = this.model.rotate.y + TAU / 4;
+			this.model.rotate.y += TAU / 4;
 		}
 
 		// collision with player

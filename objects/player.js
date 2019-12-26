@@ -1,9 +1,10 @@
-class Player extends LittleMan {
+class Player extends LittleGuy {
 	constructor() {
 		super();
 		this.stunnedTimer = 0;
 		this.health = 5;
 		this.lives = 3;
+		this.power = 0;
 
 		new Zdog.Rect({
 			addTo: this.head,
@@ -63,6 +64,9 @@ class Player extends LittleMan {
 			this.arm2.rotate.x = -Math.cos(frame / 2) - TAU / 3;
 			for (var nonPlayer in nonPlayers) {
 				if (nonPlayer === 'plants' || nonPlayer === 'effects') continue;
+				if (nonPlayer === 'littleGuys' && player.power < 2000) continue;
+				if (nonPlayer === 'badGuys' && player.power < 2000) continue;
+				if (nonPlayer === 'reindeers' && player.power < 1000) continue;
 				for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
 					if (nonPlayers[nonPlayer][i].action === 'floating-away') continue;
 					if (collision(this.model, nonPlayers[nonPlayer][i].model, 100)) {
@@ -75,6 +79,7 @@ class Player extends LittleMan {
 					}
 				}
 			}
+			updatePower(-1);
 		} else {
 			// remove magic effect
 			for (var nonPlayer in nonPlayers) {
