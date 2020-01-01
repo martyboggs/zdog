@@ -45,7 +45,7 @@ class Snail {
 	update() {
 		if (collision(this.model, player.model, 10)) {
 			this.destroy();
-			map[room.z][room.x].snails -= 1;
+			maps[level][room.z][room.x].snails -= 1;
 			updatePower(500);
 		}
 

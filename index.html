@@ -33,6 +33,7 @@
 	<div>Health: <span id="health"></span></div>
 	<div>Lives: <span id="lives"></span></div>
 	<div>Power: <span id="power"></span></div>
+	<div><span id="items"></span></div>
 </div>
 <canvas class="zdog-canvas" id="zdog-canvas" width="800" height="600"></canvas>
 <script src="game.js"></script>
@@ -43,6 +44,8 @@
 <script src="objects/player.js"></script>
 <script src="objects/reindeer.js"></script>
 <script src="objects/snail.js"></script>
+<script src="objects/key.js"></script>
+<script src="objects/door.js"></script>
 <script src="objects/plant.js"></script>
 <script src="change-room.js"></script>
 <script>
@@ -54,6 +57,8 @@ var nonPlayers = {
 	badGuys: [],
 	steves: [],
 	effects: [],
+	keys: [],
+	doors: [],
 };
 
 var player = new Player();
@@ -82,7 +87,7 @@ function animate(timestamp) {
 				if (n.model.translate.y < n.y0 - 50) {
 					n.action = 'floating-away';
 					n.ySpeed = 0;
-					map[room.z][room.x][nonPlayer] -= 1;
+					maps[level][room.z][room.x][nonPlayer] -= 1;
 				} else if (n.model.translate.y < n.y0) {
 					n.ySpeed += 0.5;
 					n.model.translate.y += n.ySpeed;

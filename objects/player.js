@@ -5,6 +5,7 @@ class Player extends LittleGuy {
 		this.health = 5;
 		this.lives = 3;
 		this.power = 0;
+		this.items = [];
 
 		new Zdog.Rect({
 			addTo: this.head,
@@ -63,10 +64,10 @@ class Player extends LittleGuy {
 			this.arm1.rotate.x = Math.cos(frame / 2) - TAU / 3;
 			this.arm2.rotate.x = -Math.cos(frame / 2) - TAU / 3;
 			for (var nonPlayer in nonPlayers) {
-				if (nonPlayer === 'plants' || nonPlayer === 'effects') continue;
-				if (nonPlayer === 'littleGuys' && player.power < 2000) continue;
-				if (nonPlayer === 'badGuys' && player.power < 2000) continue;
-				if (nonPlayer === 'reindeers' && player.power < 1000) continue;
+				if (nonPlayer === 'plants' || nonPlayer === 'effects' || nonPlayer === 'doors') continue;
+				if (nonPlayer === 'littleGuys' && player.power <= 2000) continue;
+				if (nonPlayer === 'badGuys' && player.power <= 2000) continue;
+				if (nonPlayer === 'reindeers' && player.power <= 1000) continue;
 				for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
 					if (nonPlayers[nonPlayer][i].action === 'floating-away') continue;
 					if (collision(this.model, nonPlayers[nonPlayer][i].model, 100)) {
