@@ -25,9 +25,22 @@
 		margin: 0 120px;
 		width: calc(100% - 240px);
 	}
+	#fullscreen {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0,0,0,0.4);
+		z-index: 30;
+	}
 	</style>
 </head>
 <body>
+<div id="fullscreen" style="display: none;">
+	<button type="button" id="fullscreenyes">Go Fullscreen</button>
+	<button type="button" id="fullscreenno">no thanks</button>
+</div>
 <div id="messages"></div>
 <div id="fps">
 	<div>Health: <span id="health"></span></div>
@@ -126,6 +139,28 @@ function collision(a, b, distance) {
 }
 
 animate();
+
+var fullscreen;
+document.getElementById('fullscreenyes').addEventListener('click', function (e) {
+	document.body.requestFullscreen();
+	document.getElementById('fullscreen').style.display = 'none';
+	setTimeout(function () {
+		resize();
+	}, 10);
+	fullscreen = 'on';
+
+	// let gl = zdogCanvas.getContext('webgl');
+	// gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+});
+document.getElementById('fullscreenno').addEventListener('click', function (e) {
+	fullscreen = 'off';
+	document.getElementById('fullscreen').style.display = 'none';
+});
+document.addEventListener('fullscreenchange', function (e) {
+	if (!document.fullscreenElement) {
+		document.getElementById('fullscreen').style.display = 'block';
+	}
+})
 </script>
 </body>
 </html>

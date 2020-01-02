@@ -46,7 +46,7 @@ function updateItems(item) {
 }
 function updatePower(change) {
 	player.power += change;
-	if (player.power > 10000) player.power = 10000;
+	if (player.power > 3000) player.power = 3000;
 	if (player.power < 0) player.power = 0;
 	document.getElementById('power').innerHTML = player.power;
 }
@@ -70,9 +70,13 @@ function inc(a, b) {
 }
 
 var zdogCanvas = document.getElementById('zdog-canvas');
-zdogCanvas.width = innerWidth;
-zdogCanvas.height = innerHeight - 1;
-document.body.style.height = innerHeight - 1 + 'px';
+function resize() {
+	zdogCanvas.width = innerWidth;
+	zdogCanvas.height = innerHeight - 1;
+	document.body.style.height = innerHeight - 1 + 'px';
+	console.log(innerHeight);
+}
+resize();
 
 let illo = new Zdog.Illustration({
 	element: '.zdog-canvas',
