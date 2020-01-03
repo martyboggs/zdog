@@ -1,3 +1,4 @@
-var taunt = $buzz('taunt.wav');
-
-taunt.play();
+var taunt = $buzz({
+	src: 'taunt.wav',
+	loop: true,
+});
