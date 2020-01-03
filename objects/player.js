@@ -60,6 +60,11 @@ class Player extends LittleGuy {
 
 		// magic
 		if (keys[74] === 2) {
+			if (!this.sound) {
+				this.sound = taunt.play();
+				console.log(this.sound, 'start');
+			}
+
 			this.head.translate.x = Math.cos(frame / 1.5);
 			this.arm1.rotate.x = Math.cos(frame / 2) - TAU / 3;
 			this.arm2.rotate.x = -Math.cos(frame / 2) - TAU / 3;
@@ -93,6 +98,12 @@ class Player extends LittleGuy {
 						}
 					}
 				}
+			}
+
+			if (this.sound) {
+				console.log(this.sound, 'stop');
+				taunt.stop(this.sound);
+				delete this.sound;
 			}
 
 			this.arm1.rotate.x += this.speed * DTOR * 5;
