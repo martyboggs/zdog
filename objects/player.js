@@ -61,7 +61,7 @@ class Player extends LittleGuy {
 		// magic
 		if (keys[74] === 2) {
 			if (!this.sound) {
-				this.sound = taunt.play();
+				this.sound = magic.play();
 				console.log(this.sound, 'start');
 			}
 
@@ -102,7 +102,7 @@ class Player extends LittleGuy {
 
 			if (this.sound) {
 				console.log(this.sound, 'stop');
-				taunt.stop(this.sound);
+				magic.stop(this.sound);
 				delete this.sound;
 			}
 
