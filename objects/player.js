@@ -112,7 +112,7 @@ class Player extends LittleGuy {
 		}
 
 		this.model.rotate.y = this.dir + TAU / 4;
-
+// bug: when die, key is lost and not put back
 		// change room
 		if (this.model.translate.z < -350) {
 			changeRoom(room.x, room.z - 1);

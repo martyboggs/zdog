@@ -9,9 +9,9 @@ var maps = [
 	],
 	[
 		[{reindeers: 1},              {snails: 1}, {}],
-		[{reindeers: 4},              {reindeers: 30, snails: 3},   {badGuys: 5, reindeers: 2, littleGuys: 4}],
+		[{reindeers: 4},              {reindeers: 2, snails: 3},   {badGuys: 5, reindeers: 2, littleGuys: 4}],
 		[{doors: 1, badGuys: 3},      {keys: 1},               {reindeers: 5}],
-		[null,                        {},               null],
+		[null,                        {reindeers: 15},           null],
 	],
 	[
 		[{reindeers: 10}, {snails: 4, badGuys: 3}, {}],
@@ -20,12 +20,35 @@ var maps = [
 		[null,            {},               null],
 	],
 	[
-		[{reindeers: 10}, {snails: 4, badGuys: 3}, {}],
-		[{reindeers: 4},          {badGuys: 3, reindeers: 3, steves: 1, keys: 1, snails: 3},   {badGuys: 5, reindeers: 2, littleGuys: 4}],
-		[{doors: 1, badGuys: 10}, {},               {reindeers: 5}],
+		[{reindeers: 10},         {snails: 4, badGuys: 3}, {}],
+		[{reindeers: 4},          {badGuys: 3, reindeers: 3, steves: 1, snails: 3},   {badGuys: 5, reindeers: 2, littleGuys: 4}],
+		[{doors: 1, badGuys: 10}, {badGuys: 12, keys: 1},                             {reindeers: 5}],
 		[null,            {},               null],
 	],
 ];
+var originalMaps = [];
+for (var i = 0; i < maps.length; i += 1) {
+	originalMaps[i] = [];
+	for (var j = 0; j < maps[i].length; j += 1) {
+		originalMaps[i][j] = [];
+		for (var k = 0; k < maps[i][j].length; k += 1) {
+			if (!maps[i][j][k]) {
+				originalMaps[i][j][k] = null;
+			} else {
+				originalMaps[i][j][k] = Object.assign({}, maps[i][j][k]);
+			}
+		}
+	}
+}
+
+function resetLevel() {
+	for (var i = 0; i < maps[level].length; i += 1) {
+		for (var j = 0; j < maps[level][i].length; j += 1) {
+			maps[level][i][j] = Object.assign({}, originalMaps[level][i][j]);
+		}
+	}
+}
+
 function changeRoom(x, z) {
 	if (!maps[level][z] || !maps[level][z][x]) {
 		if (z - room.z === 1) {

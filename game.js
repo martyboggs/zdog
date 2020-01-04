@@ -21,6 +21,9 @@ function updateHealth(change) {
 		}
 		player.items.length = 0;
 		updateItems();
+		player.power = 0;
+		updatePower();
+		resetLevel();
 		showMessage('You died');
 		updateLives(-1);
 		changeRoom(1, 1);
@@ -32,7 +35,7 @@ function updateHealth(change) {
 function updateLives(change) {
 	player.lives += change;
 	if (player.lives < 0) {
-		showMessage('Game Over', 99999999999999999999);
+		showMessage('Game Over', 60 * 1000);
 	}
 	if (player.lives >= 0) {
 		document.getElementById('lives').innerHTML = player.lives;
@@ -45,7 +48,9 @@ function updateItems(item) {
 	document.getElementById('items').innerHTML = player.items.length ? 'Items: ' + player.items.join(', ') : '';
 }
 function updatePower(change) {
-	player.power += change;
+	if (change) {
+		player.power += change;
+	}
 	if (player.power > 3000) player.power = 3000;
 	if (player.power < 0) player.power = 0;
 	document.getElementById('power').innerHTML = player.power;
