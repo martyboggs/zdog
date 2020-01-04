@@ -47,6 +47,7 @@ class Snail {
 			this.destroy();
 			maps[level][room.z][room.x].snails -= 1;
 			updatePower(500);
+			sound.play();
 		}
 
 		switch (this.action) {
