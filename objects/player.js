@@ -62,7 +62,6 @@ class Player extends LittleGuy {
 		if (keys[74] === 2) {
 			if (!this.sound) {
 				this.sound = magic.play();
-				console.log(this.sound, 'start');
 			}
 
 			this.head.translate.x = Math.cos(frame / 1.5);
@@ -101,7 +100,6 @@ class Player extends LittleGuy {
 			}
 
 			if (this.sound) {
-				console.log(this.sound, 'stop');
 				magic.stop(this.sound);
 				delete this.sound;
 			}
