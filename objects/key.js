@@ -46,6 +46,7 @@ class Key {
 	destroy() {
 		this.model.remove();
 		nonPlayers.keys.splice(nonPlayers.keys.indexOf(this), 1);
+		keysound.play();
 	}
 
 	update() {

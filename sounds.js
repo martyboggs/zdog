@@ -13,4 +13,7 @@ var sound = $buzz({
 	src: 'sounds/sound.wav',
 });
 
+var keysound = $buzz({
+	src: 'sounds/keysound.wav',
+});
 
