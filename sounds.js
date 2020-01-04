@@ -11,7 +11,6 @@ music.play()
 
 var sound = $buzz({
 	src: 'sounds/sound.wav',
-	loop: true,
 });
 
 
