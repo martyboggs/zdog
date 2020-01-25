@@ -7,7 +7,7 @@ class Door {
 			height: 76,
 			translate: {y: this.y0},
 			stroke: 2,
-			color: '#c1bb27',
+			color: colors.door,
 			fill: true,
 		});
 	}

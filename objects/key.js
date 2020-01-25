@@ -7,7 +7,7 @@ class Key {
 			height: 26,
 			translate: {y: this.y0},
 			stroke: 4,
-			color: '#c1bb27',
+			color: colors.key,
 			fill: true,
 		});
 
@@ -18,7 +18,7 @@ class Key {
 			translate: { y: -20 },
 			rotate: { z: TAU/4, y: TAU/2},
 			stroke: 3,
-			color: '#c1bb27',
+			color: colors.key,
 		});
 
 		new Zdog.Rect({
@@ -27,7 +27,7 @@ class Key {
 			height: 1,
 			translate: {x: 3, y: 10},
 			stroke: 4,
-			color: '#c1bb27',
+			color: colors.key,
 			fill: true,
 		});
 
@@ -37,7 +37,7 @@ class Key {
 			height: 1,
 			translate: {x: 3, y: 4},
 			stroke: 4,
-			color: '#c1bb27',
+			color: colors.key,
 			fill: true,
 		});
 

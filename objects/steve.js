@@ -2,7 +2,8 @@ class Steve extends LittleGuy {
 	constructor() {
 		super();
 		
-		this.model.color = this.arm1.color = this.arm2.color = '#c71b9f';
+		this.model.color = this.arm1.color = this.arm2.color = colors.steve.shirt;
+		this.pants.color = colors.steve.pants;
 	}
 
 	update() {
@@ -21,7 +22,7 @@ class Steve extends LittleGuy {
 			if (!this.message) {
 				this.message = 'Hey bro! ' + 
 				// (Math.random() > 0.5 ? 'Why are you swinging your arms like that? ' : '') + 
-				'You' + (player.power < 1000 ? 'r power\'s pretty low.' : '\'ve got a boatload of power!') + ' Power lets you lift stuff with your wand. It\'s a great way to thwart enemies. Collect more magic turtles to get more power!';
+				'You' + (player.power < 1000 ? 'r power\'s pretty low.' : '\'ve got a boatload of power!') + ' Power lets you lift stuff with your wand. It\'s a great way to thwart enemies. Eat more magic turtles to get more power!';
 			}
 			showMessage(this.message, 10000);
 		}

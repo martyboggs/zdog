@@ -2,26 +2,26 @@ var room = {x: 1, z: 1};
 var level = 0;
 var maps = [
 	[
-		[{reindeers: 10}, {snails: 4, doors: 1}, {}],
-		[{reindeers: 4},  {steves: 1, keys: 1, snails: 3},   {reindeers: 2, littleGuys: 4}],
+		[{reindeers: 10}, {turtles: 4, doors: 1}, {}],
+		[{reindeers: 4},  {steves: 1, keys: 1, turtles: 3},   {reindeers: 2, littleGuys: 4}],
 		[{},              {},               {reindeers: 5}],
 		[null,            {},               null],
 	],
 	[
-		[{reindeers: 1},              {snails: 1}, {}],
-		[{reindeers: 4},              {reindeers: 2, snails: 3},   {badGuys: 5, reindeers: 2, littleGuys: 4}],
+		[{reindeers: 1},              {turtles: 1}, {}],
+		[{reindeers: 4},              {reindeers: 2, turtles: 3},   {badGuys: 5, reindeers: 2, littleGuys: 4}],
 		[{doors: 1, badGuys: 3},      {keys: 1},               {reindeers: 5}],
 		[null,                        {reindeers: 15},           null],
 	],
 	[
-		[{reindeers: 10}, {snails: 4, badGuys: 3}, {}],
+		[{reindeers: 10}, {turtles: 4, badGuys: 3}, {}],
 		[{reindeers: 4},  {reindeers: 3, steves: 1, badGuys: 3},   {badGuys: 5, doors: 1, reindeers: 2, littleGuys: 4}],
 		[{keys: 1},      {},               {reindeers: 5}],
 		[null,            {},               null],
 	],
 	[
-		[{reindeers: 10},         {snails: 4, badGuys: 3}, {}],
-		[{reindeers: 4},          {badGuys: 3, reindeers: 3, steves: 1, snails: 3},   {badGuys: 5, reindeers: 2, littleGuys: 4}],
+		[{reindeers: 10},         {turtles: 4, badGuys: 3}, {}],
+		[{reindeers: 4},          {badGuys: 3, reindeers: 3, steves: 1, turtles: 3},   {badGuys: 5, reindeers: 2, littleGuys: 4}],
 		[{doors: 1, badGuys: 10}, {badGuys: 12, keys: 1},                             {reindeers: 5}],
 		[null,            {},               null],
 	],
@@ -47,6 +47,7 @@ function resetLevel() {
 			maps[level][i][j] = Object.assign({}, originalMaps[level][i][j]);
 		}
 	}
+	document.body.background = colors.background[level];
 }
 
 function changeRoom(x, z) {
@@ -103,5 +104,4 @@ function changeRoom(x, z) {
 			}
 		}
 	}
-	console.log(room, obj);
 }

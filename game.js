@@ -1,3 +1,15 @@
+// colors
+// game title
+// showmessage bug, gets hidden
+// boundary walls // collisions with inner walls
+// more complex gameplay
+// sounds and music
+// arrow key support
+// make guys ride reindeers
+// eat turtles animation
+// ground patches
+// fake shadows
+
 const TAU = Zdog.TAU; // easier to read constant
 const DTOR = TAU / 360;
 let isSpinning = true;
@@ -10,6 +22,52 @@ var keys = { // 1 up, 2 down
 	87: 1,
 	74: 1, // j
 };
+
+var colors = {
+	background: [
+		'#fbd5e4',
+	],
+	player: {
+		shirt: '#E57E94' || getRandomColor(),
+		eyes: '#D3C0AB' || getRandomColor(),
+
+	},
+	guys: {
+		shirt: '#96438B' || getRandomColor(),
+		pants: '#B75C24' || getRandomColor(),
+		skin: '#C00D19' || getRandomColor(),
+	},
+	badGuys: {
+		shirt: '' || getRandomColor(),
+	},
+	steve: {
+		shirt: '#D39718' || getRandomColor(),
+		pants: '#A31777' || getRandomColor(),
+	},
+	turtle: {
+		shell: '#44608b' || getRandomColor(),
+		skin: '#c1bb27' || getRandomColor(),
+	},
+	door: '#c1bb27' || getRandomColor(),
+	key: '#c1bb27' || getRandomColor(),
+	effects: {
+		magic: '#ffffff99' || getRandomColor(),
+	},
+	reindeer: {
+		antlers: '#000' || getRandomColor(),
+		eyes: '#D3C0AB' || getRandomColor(),
+		nose: '#000',
+		mouth: '#000',
+		legs: '#886429' || getRandomColor(),
+	},
+	plants: [
+		'#e7a7c0',
+		'#ebc6d4',
+	],
+};
+console.log(colors);
+
+document.body.style.background = colors.background[0];
 
 function updateHealth(change) {
 	if (player.lives < 0) return;
@@ -61,6 +119,14 @@ function showMessage(message, time) {
 	setTimeout(function () {
 		m.innerHTML = '';
 	}, time ? time : 5000);
+}
+function getRandomColor() {
+	var letters = '0123456789ABCDEF';
+	var color = '#';
+	for (var i = 0; i < 6; i++) {
+	  color += letters[Math.floor(Math.random() * 16)];
+	}
+	return color;
 }
 
 window.addEventListener('keydown', function (e) {

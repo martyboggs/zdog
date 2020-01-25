@@ -23,7 +23,7 @@ class Reindeer {
 			addTo: this.model,
 			stroke: 40,
 			translate: {x: 50, y: -30},
-			color: '#888888',
+			color: '#882' + String(inc(100, 999)),
 		});
 
 		this.antlers = new Zdog.Ellipse({
@@ -33,7 +33,7 @@ class Reindeer {
 			translate: { y: -30 },
 			rotate: { z: TAU/4, y: TAU/4},
 			stroke: 5,
-			color: '#000',
+			color: colors.reindeer.antlers,
 		});
 
 		this.eye = new Zdog.Shape({
@@ -42,6 +42,7 @@ class Reindeer {
 			stroke: 2,
 			fill: true,
 			translate: {x: 15, y: -2, z: 7},
+			color: colors.reindeer.eyes,
 		});
 
 		this.eye2 = new Zdog.Shape({
@@ -50,6 +51,7 @@ class Reindeer {
 			stroke: 2,
 			fill: true,
 			translate: {x: 15, y: -2, z: -7},
+			color: colors.reindeer.eyes,
 		});
 
 		this.nose = new Zdog.Shape({
@@ -58,6 +60,7 @@ class Reindeer {
 			stroke: 5,
 			fill: true,
 			translate: {x: 20, y: 5},
+			color: colors.reindeer.nose,
 		});
 
 		this.mouth = new Zdog.Rect({
@@ -67,7 +70,8 @@ class Reindeer {
 			rotate: {y: TAU / 4},
 			stroke: 1,
 			fill: true,
-			translate: {x: 13, y: 12}
+			translate: {x: 13, y: 12},
+			color: colors.reindeer.mouth,
 		});
 		
 		this.legs = [];
@@ -78,7 +82,7 @@ class Reindeer {
 				height: 0,
 				translate: {x: (i < 2 ? 30 : -30), y: 17, z: 10 * (i % 2 === 0 ? 1 : -1)},
 				stroke: 10,
-				color: '#886429',
+				color: colors.reindeer.legs,
 				fill: true
 			}));
 			new Zdog.Rect({
@@ -87,7 +91,7 @@ class Reindeer {
 				height: 30,
 				stroke: 5,
 				translate: {y: 17},
-				color: '#886429',
+				color: colors.reindeer.legs,
 				fill: true
 			});
 		}

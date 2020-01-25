@@ -7,6 +7,8 @@ class Player extends LittleGuy {
 		this.power = 0;
 		this.items = [];
 
+		this.model.color = this.arm1.color = this.arm2.color = colors.player.shirt;
+
 		new Zdog.Rect({
 			addTo: this.head,
 			stroke: 2,
@@ -14,7 +16,7 @@ class Player extends LittleGuy {
 			height: 1,
 			fill: true,
 			translate: {x: 2, y: -1, z: -4},
-			color: '#000',
+			color: colors.player.eyes,
 		});
 
 		new Zdog.Rect({
@@ -24,7 +26,7 @@ class Player extends LittleGuy {
 			height: 1,
 			fill: true,
 			translate: {x: -2, y: -1, z: -4},
-			color: '#000',
+			color: colors.player.eyes,
 		});
 
 		this.arm1.rotate.x = -TAU / 8;
@@ -127,7 +129,7 @@ class Player extends LittleGuy {
 
 		if (this.stunnedTimer) {
 			this.stunnedTimer -= 1;
-			this.model.color = this.arm1.color = this.arm2.color = this.stunnedTimer % 6 === 0 ? '#00ff88' : 'red';
+			this.model.color = this.arm1.color = this.arm2.color = this.stunnedTimer % 6 === 0 ? colors.player.shirt : 'red';
 		}
 	}
 }

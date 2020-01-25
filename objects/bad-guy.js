@@ -4,9 +4,7 @@ class BadGuy extends LittleGuy {
 		
 		this.maxSpeed = 0.5 * Math.random() + 0.5;
 
-		this.model.color = 'red';
-		this.arm1.color = 'red';
-		this.arm2.color = 'red';
+		this.model.color = this.arm1.color = this.arm2.color = colors.badGuys.shirt;
 	}
 
 	update() {

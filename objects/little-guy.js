@@ -14,13 +14,13 @@ class LittleGuy {
 			height: 5,
 			translate: { x: inc(-200, 200), y: this.y0, z: inc(-200, 200) },
 			rotate: {y: Math.random() * TAU},
-			color: '#00ff88',
+			color: colors.guys.shirt,
 		});
 		this.head = new Zdog.Shape({
 			addTo: this.model,
 			stroke: 10,
 			translate: {x: 0, y: -13},
-			color: '#999966',
+			color: colors.guys.skin,
 		});
 		this.arm1 = new Zdog.Shape({
 			addTo: this.model,
@@ -28,7 +28,7 @@ class LittleGuy {
 			path: [{}, {y: 10}],
 			fill: true,
 			translate: {x: 8, y: -6},
-			color: '#00ff88',
+			color: colors.guys.shirt,
 		});
 		this.arm2 = new Zdog.Shape({
 			addTo: this.model,
@@ -36,7 +36,7 @@ class LittleGuy {
 			path: [{}, {y: 10}],
 			fill: true,
 			translate: {x: -8, y: -6},
-			color: '#00ff88',
+			color: colors.guys.shirt,
 		});
 		this.pants = new Zdog.Rect({
 			addTo: this.model,
@@ -44,7 +44,7 @@ class LittleGuy {
 			height: 12,
 			stroke: 6,
 			translate: {x: 0, y: 15},
-			color: '#0000ff',
+			color: colors.guys.pants,
 		});
 	}
 

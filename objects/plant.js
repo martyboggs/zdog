@@ -9,7 +9,7 @@ class Plant {
 			translate: { x: inc(-300, 300), y: this.y0, z: inc(-300, 300) },
 			rotate: {y: Math.random() * TAU},
 			stroke: 30,
-			color: '#00' + String(inc(66, 99)) + '00',
+			color: colors.plants[inc(0, colors.plants.length - 1)],
 			fill: true,
 		});
 	}

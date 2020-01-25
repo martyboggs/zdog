@@ -1,4 +1,4 @@
-class Snail {
+class Turtle {
 	constructor() {
 		this.y0 = -8;
 		this.action = 'walking';
@@ -10,7 +10,7 @@ class Snail {
 			translate: { x: inc(-300, 300), y: this.y0, z: inc(-300, 300) },
 			rotate: {y: Math.random() * TAU},
 			stroke: 16,
-			color: '#44608b',
+			color: colors.turtle.shell,
 			fill: true,
 		});
 
@@ -20,7 +20,7 @@ class Snail {
 			height: 2,
 			translate: { x: 10, y: 4 },
 			stroke: 7,
-			color: '#c1bb27',
+			color: colors.turtle.skin,
 			fill: true,
 		});
 
@@ -31,7 +31,7 @@ class Snail {
 				height: 2,
 				translate: { x: (i > 1 ? 1 : -1) * 4 - 1, y: 6, z: (i % 2 === 0 ? 1 : -1) * 8 },
 				stroke: 3,
-				color: '#c1bb27',
+				color: colors.turtle.skin,
 				fill: true,
 			});
 		}
@@ -39,13 +39,13 @@ class Snail {
 
 	destroy() {
 		this.model.remove();
-		nonPlayers.snails.splice(nonPlayers.snails.indexOf(this), 1);
+		nonPlayers.turtles.splice(nonPlayers.turtles.indexOf(this), 1);
 	}
 
 	update() {
 		if (collision(this.model, player.model, 10)) {
 			this.destroy();
-			maps[level][room.z][room.x].snails -= 1;
+			maps[level][room.z][room.x].turtles -= 1;
 			updatePower(500);
 			sound.play();
 		}

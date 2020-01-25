@@ -11,7 +11,7 @@ class Effect {
 				rotate: { x: TAU/4},
 				translate: {x: parent.model.translate.x, y: -2, z: parent.model.translate.z},
 				stroke: 2,
-				color: '#ffffff99',
+				color: colors.effects.magic,
 				scale: {x: 0, y: 0},
 			});
 		}
