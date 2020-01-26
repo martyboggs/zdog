@@ -101,6 +101,25 @@ function changeRoom(x, z) {
 		nonPlayers.plants.push(new Plant());
 	}
 
+	// add splotches
+	for (var i = 0; i < 3; i += 1) {
+		nonPlayers.splotches.push({
+			model: new Zdog.Ellipse({
+				addTo: illo,
+				translate: {
+					x: 500 * Math.random() - 250,
+					z: 500 * Math.random() - 250
+				},
+				rotate: {x: TAU / 4},
+				diameter: inc(100, 305),
+				stroke: 0,
+				fill: true,
+				color: '#00000008',
+			}),
+			update: function () {}
+		});
+	}
+
 	// add objects
 	for (var prop in obj) {
 		if (nonPlayers[prop]) {

@@ -3,13 +3,10 @@
 // boundary walls // collisions with inner walls
 // more complex gameplay, more items
 // sounds and music
-// arrow key support
 // make guys ride reindeers
 // eat turtles animation
 // show message when you eat your first turtle
-// ground patches
 // reindeer attack
-// rotate scene slightly based x position
 
 const TAU = Zdog.TAU; // easier to read constant
 const DTOR = TAU / 360;
@@ -152,7 +149,6 @@ function lightenDarkenColor(col, amt) {
 
 window.addEventListener('keydown', function (e) {
 	if (keys[e.key] && keys[e.key] !== 2) keys[e.key] = 2;
-	console.log(keys, e);
 });
 window.addEventListener('keyup', function (e) {
 	if (keys[e.key] && keys[e.key] !== 1) keys[e.key] = 1;
@@ -167,7 +163,6 @@ function resize() {
 	zdogCanvas.width = innerWidth;
 	zdogCanvas.height = innerHeight - 1;
 	document.body.style.height = innerHeight - 1 + 'px';
-	console.log(innerHeight);
 }
 resize();
 
@@ -189,6 +184,7 @@ var nonPlayers = {
 	effects: [],
 	keys: [],
 	doors: [],
+	splotches: [],
 };
 
 var player = new Player();
@@ -241,6 +237,8 @@ function animate(timestamp) {
 	}
 
 	illo.translate.x = -player.model.translate.x;
+
+	illo.rotate.y = -player.model.translate.x / 500 / TAU;
 
 	illo.updateRenderGraph();
 	frame = requestAnimationFrame( animate );
