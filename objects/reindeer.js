@@ -39,19 +39,35 @@ class Reindeer {
 		this.eye = new Zdog.Shape({
 			addTo: this.head,
 			rotate: {y: TAU / 4},
-			stroke: 2,
+			stroke: 4,
 			fill: true,
 			translate: {x: 15, y: -2, z: 7},
-			color: colors.reindeer.eyes,
+			color: '#fff',
 		});
 
 		this.eye2 = new Zdog.Shape({
 			addTo: this.head,
 			rotate: {y: TAU / 4},
+			stroke: 4,
+			fill: true,
+			translate: {x: 15, y: -2, z: -7},
+			color: '#fff',
+		});
+
+		this.pupil = new Zdog.Shape({
+			addTo: this.head,
+			rotate: {y: TAU / 4},
+			stroke: 2,
+			fill: true,
+			translate: {x: 15, y: -2, z: 7},
+		});
+
+		this.pupil2 = new Zdog.Shape({
+			addTo: this.head,
+			rotate: {y: TAU / 4},
 			stroke: 2,
 			fill: true,
 			translate: {x: 15, y: -2, z: -7},
-			color: colors.reindeer.eyes,
 		});
 
 		this.nose = new Zdog.Shape({

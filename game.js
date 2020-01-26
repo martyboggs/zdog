@@ -7,8 +7,10 @@
 // arrow key support
 // make guys ride reindeers
 // eat turtles animation
+// show message when you eat your first turtle
 // ground patches
 // fake shadows
+// reindeer attack
 
 const TAU = Zdog.TAU; // easier to read constant
 const DTOR = TAU / 360;
@@ -25,7 +27,11 @@ var keys = { // 1 up, 2 down
 
 var colors = {
 	background: [
+		'#cef3e4',
 		'#fbd5e4',
+		'#f3eece',
+		'#d3cef3',
+		'#ced7f3',
 	],
 	player: {
 		shirt: '#E57E94' || getRandomColor(),
@@ -55,19 +61,12 @@ var colors = {
 	},
 	reindeer: {
 		antlers: '#000' || getRandomColor(),
-		eyes: '#D3C0AB' || getRandomColor(),
 		nose: '#000',
 		mouth: '#000',
 		legs: '#886429' || getRandomColor(),
 	},
-	plants: [
-		'#e7a7c0',
-		'#ebc6d4',
-	],
+	plants: [/* populated later */],
 };
-console.log(colors);
-
-document.body.style.background = colors.background[0];
 
 function updateHealth(change) {
 	if (player.lives < 0) return;
@@ -127,6 +126,24 @@ function getRandomColor() {
 	  color += letters[Math.floor(Math.random() * 16)];
 	}
 	return color;
+}
+function lightenDarkenColor(col, amt) {
+	var usePound = false;
+	if (col[0] === "#") {
+		col = col.slice(1);
+		usePound = true;
+	}
+	var num = parseInt(col,16);
+ 	var r = (num >> 16) + amt;
+	if (r > 255) r = 255;
+	else if  (r < 0) r = 0; 
+	var b = ((num >> 8) & 0x00FF) + amt;
+	if (b > 255) b = 255;
+	else if  (b < 0) b = 0;
+	var g = (num & 0x0000FF) + amt;
+	if (g > 255) g = 255;
+	else if (g < 0) g = 0;
+	return (usePound?'#':'') + (g | (b << 8) | (r << 16)).toString(16);
 }
 
 window.addEventListener('keydown', function (e) {

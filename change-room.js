@@ -47,10 +47,14 @@ function resetLevel() {
 			maps[level][i][j] = Object.assign({}, originalMaps[level][i][j]);
 		}
 	}
-	document.body.background = colors.background[level];
 }
 
 function changeRoom(x, z) {
+	document.body.style.background = colors.background[level];
+	colors.plants[0] = lightenDarkenColor(colors.background[level], -10);
+	colors.plants[1] = lightenDarkenColor(colors.background[level], -20);
+	colors.plants[2] = lightenDarkenColor(colors.background[level], -30);
+
 	if (!maps[level][z] || !maps[level][z][x]) {
 		if (z - room.z === 1) {
 			player.model.translate.z = 350;
