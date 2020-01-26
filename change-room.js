@@ -49,37 +49,81 @@ function resetLevel() {
 	}
 }
 
+function addBoundaries() {
+	if (!maps[level][room.z + 1] || !maps[level][room.z + 1][room.x]) {
+		createWall('x', 300, 12);
+	}
+	if (!maps[level][room.z - 1] || !maps[level][room.z - 1][room.x]) {
+		createWall('x', -300, 12);
+	}
+
+	if (!maps[level][room.z][room.x - 1]) {
+		createWall('z', -(gameSize + 20), 30);
+	}
+	if (!maps[level][room.z][room.x + 1]) {
+		createWall('z', gameSize + 20, 30);
+	}
+}
+
+function createWall(axis, offset, interval) {
+	var stick = {
+		addTo: illo,
+		width: 3,
+		height: 65,
+		stroke: 2,
+		color: colors.stick,
+		fill: true,
+		translate: {},
+		rotate: {},
+	};
+	for (var i = 0; i < Math.round(2 * gameSize / interval); i += 1) {
+		var height = 20 * Math.random() + 55;
+		stick.height = height;
+		stick.translate[axis] = interval * i - gameSize;
+		stick.translate[axis==='x'?'z':'x'] = offset;
+		stick.translate.y = -(height / 2);
+		stick.rotate = {
+			x: (10 * Math.random() - 5) * TAU / 360,
+			z: (10 * Math.random() - 5) * TAU / 360,
+		};
+		nonPlayers.boundaries.push({
+			model: new Zdog.Rect(stick),
+			update: function () {}
+		});
+	}
+}
+
 function changeRoom(x, z) {
 	document.body.style.background = colors.background[level];
 	colors.plants[0] = lightenDarkenColor(colors.background[level], -10);
 	colors.plants[1] = lightenDarkenColor(colors.background[level], -20);
 	colors.plants[2] = lightenDarkenColor(colors.background[level], -30);
 
-	if (!maps[level][z] || !maps[level][z][x]) {
-		if (z - room.z === 1) {
-			player.model.translate.z = 350;
-		} else if (z - room.z === -1) {
-			player.model.translate.z = -350;
+	if (!maps[level][z] || !maps[level][z][x]) { // if no room
+		if (z - room.z === 1) { // if moving down
+			player.model.translate.z = gameSize - 100;
+		} else if (z - room.z === -1) { // if moving up
+			player.model.translate.z = -gameSize + 100;
 		}
 
 		if (x - room.x === 1) {
-			player.model.translate.x = 350;
+			player.model.translate.x = gameSize;
 		} else if (x - room.x === -1) {
-			player.model.translate.x = -350;
+			player.model.translate.x = -gameSize;
 		}
 		return;
 	}
 
 	if (z - room.z === 1) {
-		player.model.translate.z = -290;
+		player.model.translate.z = -(gameSize - 60) + 100;
 	} else if (z - room.z === -1) {
-		player.model.translate.z = 290;
+		player.model.translate.z = (gameSize - 60) - 100;
 	}
 
 	if (x - room.x === 1) {
-		player.model.translate.x = -290;
+		player.model.translate.x = -(gameSize - 60);
 	} else if (x - room.x === -1) {
-		player.model.translate.x = 290;
+		player.model.translate.x = (gameSize - 60);
 	}
 
 	room.x = x;
@@ -96,6 +140,9 @@ function changeRoom(x, z) {
 		nonPlayers[nonPlayer].length = 0;
 	}
 
+	// add boundaries
+	addBoundaries();
+
 	// add plants
 	for (var i = 0; i < 10; i += 1) {
 		nonPlayers.plants.push(new Plant());
@@ -107,14 +154,14 @@ function changeRoom(x, z) {
 			model: new Zdog.Ellipse({
 				addTo: illo,
 				translate: {
-					x: 500 * Math.random() - 250,
-					z: 500 * Math.random() - 250
+					x: 1000 * Math.random() - 500,
+					z: 500 * Math.random() - 250 - 500 
 				},
 				rotate: {x: TAU / 4},
-				diameter: inc(100, 305),
+				diameter: inc(100, 1305),
 				stroke: 0,
 				fill: true,
-				color: '#00000008',
+				color: '#00000003',
 			}),
 			update: function () {}
 		});

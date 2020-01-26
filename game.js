@@ -24,8 +24,10 @@ var keys = { // 1 up, 2 down
 	ArrowDown: 1,
 	ArrowRight: 1,
 };
+var gameSize = 360;
 
 var colors = {
+	stick: '#5fd89e',
 	background: [
 		'#cef3e4',
 		'#fbd5e4',
@@ -185,6 +187,7 @@ var nonPlayers = {
 	keys: [],
 	doors: [],
 	splotches: [],
+	boundaries: [],
 };
 
 var player = new Player();
