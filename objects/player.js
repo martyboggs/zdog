@@ -33,17 +33,17 @@ class Player extends LittleGuy {
 	}
 
 	update() {
-		if (keys[65] === 2) {
+		if (keys.a === 2 || keys.ArrowLeft === 2) {
 			this.dir -= 3 * DTOR;
 		}
-		if (keys[68] === 2) {
+		if (keys.d === 2 || keys.ArrowRight === 2) {
 			this.dir += 3 * DTOR;
 		}
 		this.speed = 0;
-		if (keys[83] === 2) {
+		if (keys.s === 2 || keys.ArrowDown === 2) {
 			this.speed = -3;
 		}
-		if (keys[87] === 2) {
+		if (keys.w === 2 || keys.ArrowUp === 2) {
 			this.speed = 3
 		}
 
@@ -61,7 +61,7 @@ class Player extends LittleGuy {
 		// }
 
 		// magic
-		if (keys[74] === 2) {
+		if (keys.j === 2) {
 			if (!this.sound) {
 				this.sound = magic.play();
 			}
@@ -94,7 +94,6 @@ class Player extends LittleGuy {
 					for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
 						if (nonPlayers[nonPlayer][i].type === 'magic') {
 							nonPlayers[nonPlayer][i].model.remove();
-							nonPlayers[nonPlayer][i].shadow.remove();
 							nonPlayers[nonPlayer][i].parent.effect = null;
 							nonPlayers[nonPlayer].splice(i, 1);
 						}

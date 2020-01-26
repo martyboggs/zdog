@@ -1,4 +1,3 @@
-// colors
 // game title
 // showmessage bug, gets hidden
 // boundary walls // collisions with inner walls
@@ -9,7 +8,6 @@
 // eat turtles animation
 // show message when you eat your first turtle
 // ground patches
-// fake shadows
 // reindeer attack
 // rotate scene slightly based x position
 
@@ -19,11 +17,15 @@ let isSpinning = true;
 var frame = 0;
 
 var keys = { // 1 up, 2 down
-	65: 1,
-	68: 1,
-	83: 1,
-	87: 1,
-	74: 1, // j
+	w: 1,
+	a: 1,
+	s: 1,
+	d: 1,
+	j: 1,
+	ArrowUp: 1,
+	ArrowLeft: 1,
+	ArrowDown: 1,
+	ArrowRight: 1,
 };
 
 var colors = {
@@ -58,7 +60,7 @@ var colors = {
 	door: '#c1bb27' || getRandomColor(),
 	key: '#c1bb27' || getRandomColor(),
 	effects: {
-		magic: '#ffffff99' || getRandomColor(),
+		magic: '#000000' + '0D',
 	},
 	reindeer: {
 		skin: '#ce9f81',
@@ -149,10 +151,11 @@ function lightenDarkenColor(col, amt) {
 }
 
 window.addEventListener('keydown', function (e) {
-	if (keys[e.which] && keys[e.which] !== 2) keys[e.which] = 2;
+	if (keys[e.key] && keys[e.key] !== 2) keys[e.key] = 2;
+	console.log(keys, e);
 });
 window.addEventListener('keyup', function (e) {
-	if (keys[e.which] && keys[e.which] !== 1) keys[e.which] = 1;
+	if (keys[e.key] && keys[e.key] !== 1) keys[e.key] = 1;
 });
 
 function inc(a, b) {
@@ -229,7 +232,7 @@ function animate(timestamp) {
 			} else if (n.action === 'floating') {
 				n.model.rotate.x += 0.007;
 				n.model.rotate.z += 0.005;
-				if (keys[74] === 1) {
+				if (keys.j === 1) {
 					n.action = 'walking';
 					n.ySpeed = 0;
 				}
