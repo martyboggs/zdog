@@ -26,5 +26,8 @@ class Steve extends LittleGuy {
 			}
 			showMessage(this.message, 10000);
 		}
+
+		this.shadow.translate.x = this.model.translate.x;
+		this.shadow.translate.z = this.model.translate.z;
 	}
 }

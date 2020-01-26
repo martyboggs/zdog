@@ -112,10 +112,23 @@ class Reindeer {
 				fill: true
 			});
 		}
+
+		this.shadow = new Zdog.RoundedRect({
+			addTo: illo,
+			rotate: {x: TAU / 4},
+			width: 80,
+			cornerRadius: 40,
+			height: 50,
+			stroke: 0,
+			fill: true,
+			translate: {x: 0},
+			color: '#00000008',
+		});
 	}
 
 	destroy() {
 		this.model.remove();
+		this.shadow.remove();
 		nonPlayers.reindeers.splice(nonPlayers.reindeers.indexOf(this), 1);
 	}
 
@@ -162,5 +175,9 @@ class Reindeer {
 				}
 			break;
 		}
+
+		this.shadow.translate.x = this.model.translate.x;
+		this.shadow.translate.z = this.model.translate.z;
+		this.shadow.rotate.z = this.model.rotate.y;
 	}
 }

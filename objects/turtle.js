@@ -1,6 +1,6 @@
 class Turtle {
 	constructor() {
-		this.y0 = -8;
+		this.y0 = -9;
 		this.action = 'walking';
 
 		this.model = new Zdog.Rect({
@@ -35,10 +35,21 @@ class Turtle {
 				fill: true,
 			});
 		}
+
+		this.shadow = new Zdog.Ellipse({
+			addTo: illo,
+			rotate: {x: TAU / 4},
+			diameter: 25,
+			stroke: 0,
+			fill: true,
+			translate: {x: 0},
+			color: '#00000008',
+		});
 	}
 
 	destroy() {
 		this.model.remove();
+		this.shadow.remove();
 		nonPlayers.turtles.splice(nonPlayers.turtles.indexOf(this), 1);
 	}
 
@@ -61,5 +72,7 @@ class Turtle {
 			break;
 		}
 
+		this.shadow.translate.x = this.model.translate.x;
+		this.shadow.translate.z = this.model.translate.z;
 	}
 }

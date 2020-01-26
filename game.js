@@ -2,7 +2,7 @@
 // game title
 // showmessage bug, gets hidden
 // boundary walls // collisions with inner walls
-// more complex gameplay
+// more complex gameplay, more items
 // sounds and music
 // arrow key support
 // make guys ride reindeers
@@ -11,6 +11,7 @@
 // ground patches
 // fake shadows
 // reindeer attack
+// rotate scene slightly based x position
 
 const TAU = Zdog.TAU; // easier to read constant
 const DTOR = TAU / 360;
@@ -174,4 +175,103 @@ let illo = new Zdog.Illustration({
 	rotate: {x: -TAU / 16},
 	translate: {y: 80},
 });
-var frame = 0;
+
+var nonPlayers = {
+	reindeers: [],
+	plants: [],
+	turtles: [],
+	littleGuys: [],
+	badGuys: [],
+	steves: [],
+	effects: [],
+	keys: [],
+	doors: [],
+};
+
+var player = new Player();
+changeRoom(1, 1);
+document.getElementById('health').innerHTML = player.health;
+document.getElementById('lives').innerHTML = player.lives;
+document.getElementById('power').innerHTML = player.power;
+
+var averageTimePerFrame = 0;
+var time = 0;
+function animate(timestamp) {
+	for (var nonPlayer in nonPlayers) {
+		for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
+			nonPlayers[nonPlayer][i].update();
+		}
+	}
+	player.update();
+
+	// gravity
+	let n;
+	for (var nonPlayer in nonPlayers) {
+		if (['plants', 'effects', 'doors', 'keys'].indexOf(nonPlayer) !== -1) continue;
+		for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
+			n = nonPlayers[nonPlayer][i];
+			if (n.action === 'walking') {
+				if (n.model.translate.y < n.y0 - 50) {
+					n.action = 'floating-away';
+					n.ySpeed = 0;
+					maps[level][room.z][room.x][nonPlayer] -= 1;
+				} else if (n.model.translate.y < n.y0) {
+					n.ySpeed += 0.5;
+					n.model.translate.y += n.ySpeed;
+				} else {
+					n.model.translate.y = n.y0;
+					n.model.rotate.x = 0;
+					n.model.rotate.z = 0;
+				}
+			} else if (n.action === 'floating-away') {
+				n.ySpeed -= 0.5;
+				n.model.translate.y += n.ySpeed;
+			} else if (n.action === 'floating') {
+				n.model.rotate.x += 0.007;
+				n.model.rotate.z += 0.005;
+				if (keys[74] === 1) {
+					n.action = 'walking';
+					n.ySpeed = 0;
+				}
+			}
+		}
+	}
+
+	illo.translate.x = -player.model.translate.x;
+
+	illo.updateRenderGraph();
+	frame = requestAnimationFrame( animate );
+	// document.getElementById('fps').innerHTML = frame / timestamp * 1000;
+}
+
+function collision(a, b, distance) {
+	if (a.translate.x > b.translate.x - distance && a.translate.x < b.translate.x + distance &&
+	a.translate.z > b.translate.z - distance && a.translate.z < b.translate.z + distance) {
+		return true;
+	}
+	return false;
+}
+
+animate();
+
+var fullscreen;
+document.getElementById('fullscreenyes').addEventListener('click', function (e) {
+	document.body.requestFullscreen();
+	document.getElementById('fullscreen').style.display = 'none';
+	setTimeout(function () {
+		resize();
+	}, 10);
+	fullscreen = 'on';
+
+	// let gl = zdogCanvas.getContext('webgl');
+	// gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+});
+document.getElementById('fullscreenno').addEventListener('click', function (e) {
+	fullscreen = 'off';
+	document.getElementById('fullscreen').style.display = 'none';
+});
+document.addEventListener('fullscreenchange', function (e) {
+	if (!document.fullscreenElement) {
+		document.getElementById('fullscreen').style.display = 'block';
+	}
+});

@@ -46,6 +46,16 @@ class LittleGuy {
 			translate: {x: 0, y: 15},
 			color: colors.guys.pants,
 		});
+
+		this.shadow = new Zdog.Ellipse({
+			addTo: illo,
+			rotate: {x: TAU / 4},
+			diameter: 15,
+			stroke: 0,
+			fill: true,
+			translate: {x: 0},
+			color: '#00000008',
+		});
 	}
 
 	update() {
@@ -55,5 +65,8 @@ class LittleGuy {
 				this.arm2.rotate.x += DTOR * 5;
 			break;
 		}
+
+		this.shadow.translate.x = this.model.translate.x;
+		this.shadow.translate.z = this.model.translate.z;
 	}
 }

@@ -32,5 +32,7 @@ class BadGuy extends LittleGuy {
 			}
 		}
 
+		this.shadow.translate.x = this.model.translate.x;
+		this.shadow.translate.z = this.model.translate.z;
 	}
 }

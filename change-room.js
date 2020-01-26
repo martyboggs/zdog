@@ -91,6 +91,7 @@ function changeRoom(x, z) {
 	for (var nonPlayer in nonPlayers) {
 		for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
 			nonPlayers[nonPlayer][i].model.remove();
+			if (nonPlayers[nonPlayer][i].shadow) nonPlayers[nonPlayer][i].shadow.remove();
 		}
 		nonPlayers[nonPlayer].length = 0;
 	}

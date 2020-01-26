@@ -1,6 +1,6 @@
 class Key {
 	constructor() {
-		this.y0 = -14;
+		this.y0 = -15;
 		this.model = new Zdog.Rect({
 			addTo: illo,
 			width: 1,
@@ -41,10 +41,20 @@ class Key {
 			fill: true,
 		});
 
+		this.shadow = new Zdog.Ellipse({
+			addTo: illo,
+			rotate: {x: TAU / 4},
+			diameter: 15,
+			stroke: 0,
+			fill: true,
+			translate: {x: 0},
+			color: '#00000008',
+		});
 	}
 
 	destroy() {
 		this.model.remove();
+		this.shadow.remove();
 		nonPlayers.keys.splice(nonPlayers.keys.indexOf(this), 1);
 		keysound.play();
 	}
@@ -56,5 +66,8 @@ class Key {
 			maps[level][room.z][room.x].keys -= 1;
 			updateItems('key');
 		}
+
+		this.shadow.translate.x = this.model.translate.x;
+		this.shadow.translate.z = this.model.translate.z;
 	}
 }

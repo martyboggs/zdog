@@ -70,7 +70,7 @@ class Player extends LittleGuy {
 			this.arm1.rotate.x = Math.cos(frame / 2) - TAU / 3;
 			this.arm2.rotate.x = -Math.cos(frame / 2) - TAU / 3;
 			for (var nonPlayer in nonPlayers) {
-				if (nonPlayer === 'plants' || nonPlayer === 'effects' || nonPlayer === 'doors') continue;
+				if (['plants', 'effects', 'doors', 'keys'].indexOf(nonPlayer) !== -1) continue;
 				if (nonPlayer === 'littleGuys' && player.power <= 2000) continue;
 				if (nonPlayer === 'badGuys' && player.power <= 2000) continue;
 				if (nonPlayer === 'reindeers' && player.power <= 1000) continue;
@@ -94,6 +94,7 @@ class Player extends LittleGuy {
 					for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
 						if (nonPlayers[nonPlayer][i].type === 'magic') {
 							nonPlayers[nonPlayer][i].model.remove();
+							nonPlayers[nonPlayer][i].shadow.remove();
 							nonPlayers[nonPlayer][i].parent.effect = null;
 							nonPlayers[nonPlayer].splice(i, 1);
 						}
@@ -131,5 +132,8 @@ class Player extends LittleGuy {
 			this.stunnedTimer -= 1;
 			this.model.color = this.arm1.color = this.arm2.color = this.stunnedTimer % 6 === 0 ? colors.player.shirt : 'red';
 		}
+
+		this.shadow.translate.x = this.model.translate.x;
+		this.shadow.translate.z = this.model.translate.z;
 	}
 }
