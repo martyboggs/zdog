@@ -7,6 +7,7 @@ class Reindeer {
 		this.maxSpeed = 0.5 + 0.5 * Math.random();
 		this.y0 = -52;
 		this.ySpeed = 0;
+		this.color = lightenDarkenColor(colors.reindeer.skin, 50 * Math.random() - 25);
 
 		this.model = new Zdog.Rect({
 			addTo: illo,
@@ -15,7 +16,7 @@ class Reindeer {
 			translate: { x: inc(-200, 200), y: this.y0, z: inc(-200, 200) },
 			rotate: {y: Math.random() * TAU},
 			stroke: 45,
-			color: '#882' + String(inc(100, 999)),
+			color: this.color,
 			fill: true,
 		});
 		
@@ -23,7 +24,7 @@ class Reindeer {
 			addTo: this.model,
 			stroke: 40,
 			translate: {x: 50, y: -30},
-			color: '#882' + String(inc(100, 999)),
+			color: lightenDarkenColor(this.color, 20),
 		});
 
 		this.antlers = new Zdog.Ellipse({

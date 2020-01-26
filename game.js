@@ -60,6 +60,7 @@ var colors = {
 		magic: '#ffffff99' || getRandomColor(),
 	},
 	reindeer: {
+		skin: '#ce9f81',
 		antlers: '#000' || getRandomColor(),
 		nose: '#000',
 		mouth: '#000',
