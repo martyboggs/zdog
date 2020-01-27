@@ -76,7 +76,7 @@ function createWall(axis, offset, interval) {
 		translate: {},
 		rotate: {},
 	};
-	for (var i = 0; i < Math.round(2 * gameSize / interval); i += 1) {
+	for (var i = 0; i < Math.round(2 * gameSize / interval) + 2; i += 1) {
 		var height = 20 * Math.random() + 55;
 		stick.height = height;
 		stick.translate[axis] = interval * i - gameSize;

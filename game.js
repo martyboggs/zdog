@@ -1,12 +1,13 @@
 // game title
 // showmessage bug, gets hidden
-// boundary walls // collisions with inner walls
+// collisions with inner walls
 // more complex gameplay, more items
 // sounds and music
 // make guys ride reindeers
 // eat turtles animation
 // show message when you eat your first turtle
 // reindeer attack
+
 
 const TAU = Zdog.TAU; // easier to read constant
 const DTOR = TAU / 360;

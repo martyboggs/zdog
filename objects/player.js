@@ -71,8 +71,8 @@ class Player extends LittleGuy {
 			this.arm2.rotate.x = -Math.cos(frame / 2) - TAU / 3;
 			for (var nonPlayer in nonPlayers) {
 				if (['plants', 'effects', 'doors', 'keys'].indexOf(nonPlayer) !== -1) continue;
-				if (nonPlayer === 'littleGuys' && player.power <= 2000) continue;
 				if (nonPlayer === 'badGuys' && player.power <= 2000) continue;
+				if (nonPlayer === 'littleGuys' && player.power <= 1000) continue;
 				if (nonPlayer === 'reindeers' && player.power <= 1000) continue;
 				for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
 					if (nonPlayers[nonPlayer][i].action === 'floating-away') continue;

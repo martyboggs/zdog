@@ -64,6 +64,16 @@ class LittleGuy {
 				this.arm1.rotate.x += DTOR * 5;
 				this.arm2.rotate.x += DTOR * 5;
 			break;
+			case 'riding':
+				this.arm1.rotate.x += DTOR * 15;
+				this.arm2.rotate.x += DTOR * 15;
+				this.model.translate = {
+					x: this.ridee.model.translate.x,
+					y: -100,
+					z: this.ridee.model.translate.z,
+				};
+				this.model.rotate.y = this.ridee.model.rotate.y + TAU / 4;
+			break;
 		}
 
 		this.shadow.translate.x = this.model.translate.x;

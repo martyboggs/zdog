@@ -13,7 +13,7 @@ class Reindeer {
 			addTo: illo,
 			width: 40,
 			height: 10,
-			translate: { x: inc(-200, 200), y: this.y0, z: inc(-200, 200) },
+			translate: { x: inc(-gameSize, gameSize), y: this.y0, z: inc(-gameSize, gameSize) },
 			rotate: {y: Math.random() * TAU},
 			stroke: 45,
 			color: this.color,
@@ -124,6 +124,13 @@ class Reindeer {
 			translate: {x: 0},
 			color: '#00000008',
 		});
+
+		if (Math.random() > 0.9) {
+			this.rider = new LittleGuy();
+			this.rider.action = 'riding';
+			this.rider.ridee = this;
+			nonPlayers.littleGuys.push(this.rider);
+		}
 	}
 
 	destroy() {
@@ -176,8 +183,23 @@ class Reindeer {
 			break;
 		}
 
+		this.boundaryCollision();
+
 		this.shadow.translate.x = this.model.translate.x;
 		this.shadow.translate.z = this.model.translate.z;
 		this.shadow.rotate.z = this.model.rotate.y;
+	}
+
+	boundaryCollision() {
+		if (this.model.translate.z < -gameSize + 100) {
+			this.model.translate.z = -gameSize + 100;
+		} else if (this.model.translate.z > gameSize - 100) {
+			this.model.translate.z = gameSize - 100;
+		}
+		if (this.model.translate.x < -gameSize + 30) {
+			this.model.translate.x = -gameSize + 30;
+		} else if (this.model.translate.x > gameSize - 30) {
+			this.model.translate.x = gameSize - 30;
+		}
 	}
 }
