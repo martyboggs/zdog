@@ -125,10 +125,11 @@ class Reindeer {
 			color: '#00000008',
 		});
 
-		if (Math.random() > 0.9) {
+		if (Math.random() > 0.97) {
 			this.rider = new LittleGuy();
 			this.rider.action = 'riding';
 			this.rider.ridee = this;
+			this.rider.shadow.remove();
 			nonPlayers.littleGuys.push(this.rider);
 		}
 	}
@@ -191,14 +192,14 @@ class Reindeer {
 	}
 
 	boundaryCollision() {
-		if (this.model.translate.z < -gameSize + 100) {
+		if (this.model.translate.z < -gameSize + 100 && (!maps[level][room.z - 1] || !maps[level][room.z - 1][room.x])) { // top
 			this.model.translate.z = -gameSize + 100;
-		} else if (this.model.translate.z > gameSize - 100) {
+		} else if (this.model.translate.z > gameSize - 100 && (!maps[level][room.z + 1] || !maps[level][room.z + 1][room.x])) { // bottom
 			this.model.translate.z = gameSize - 100;
 		}
-		if (this.model.translate.x < -gameSize + 30) {
+		if (this.model.translate.x < -gameSize + 30 && (!maps[level][room.z][room.x - 1])) {
 			this.model.translate.x = -gameSize + 30;
-		} else if (this.model.translate.x > gameSize - 30) {
+		} else if (this.model.translate.x > gameSize - 30 && (!maps[level][room.z][room.x + 1])) {
 			this.model.translate.x = gameSize - 30;
 		}
 	}

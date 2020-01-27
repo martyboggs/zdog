@@ -3,7 +3,6 @@
 // collisions with inner walls
 // more complex gameplay, more items
 // sounds and music
-// make guys ride reindeers
 // eat turtles animation
 // show message when you eat your first turtle
 // reindeer attack
@@ -242,7 +241,7 @@ function animate(timestamp) {
 
 	illo.translate.x = -player.model.translate.x;
 
-	illo.rotate.y = -player.model.translate.x / 500 / TAU;
+	// illo.rotate.y = -player.model.translate.x / 500 / TAU;
 
 	illo.updateRenderGraph();
 	frame = requestAnimationFrame( animate );
