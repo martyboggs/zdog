@@ -105,7 +105,9 @@ class Turtle {
 			break;
 		}
 
-		this.shadow.translate.x = this.model.translate.x;
-		this.shadow.translate.z = this.model.translate.z;
+		if (this.shadow) {
+			this.shadow.translate.x = this.model.translate.x;
+			this.shadow.translate.z = this.model.translate.z;
+		}
 	}
 }

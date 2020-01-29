@@ -69,12 +69,15 @@ class Key {
 			};
 			this.model.rotate.z = TAU / 4;
 			this.model.rotate.y = TAU / 4;
+			this.shadow.remove();
 			player.model.addChild(this.model);
 			maps[level][room.z][room.x].keys -= 1;
 			updateItems('key');
 		}
 
-		this.shadow.translate.x = this.model.translate.x;
-		this.shadow.translate.z = this.model.translate.z;
+		if (this.shadow) {
+			this.shadow.translate.x = this.model.translate.x;
+			this.shadow.translate.z = this.model.translate.z;
+		}
 	}
 }

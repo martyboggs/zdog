@@ -186,9 +186,11 @@ class Reindeer {
 
 		this.boundaryCollision();
 
-		this.shadow.translate.x = this.model.translate.x;
-		this.shadow.translate.z = this.model.translate.z;
-		this.shadow.rotate.z = this.model.rotate.y;
+		if (this.shadow) {
+			this.shadow.translate.x = this.model.translate.x;
+			this.shadow.translate.z = this.model.translate.z;
+			this.shadow.rotate.z = this.model.rotate.y;
+		}
 	}
 
 	boundaryCollision() {
