@@ -184,6 +184,7 @@ var nonPlayers = {
 	badGuys: [],
 	steves: [],
 	effects: [],
+	particles: [],
 	keys: [],
 	doors: [],
 	splotches: [],
@@ -241,7 +242,7 @@ function animate(timestamp) {
 
 	illo.translate.x = -player.model.translate.x;
 
-	// illo.rotate.y = -player.model.translate.x / 500 / TAU;
+	illo.rotate.y = -player.model.translate.x / 2000;
 
 	illo.updateRenderGraph();
 	frame = requestAnimationFrame( animate );

@@ -50,18 +50,18 @@ function resetLevel() {
 }
 
 function addBoundaries() {
-	if (!maps[level][room.z + 1] || !maps[level][room.z + 1][room.x]) {
+	if (!maps[level][room.z + 1] || !maps[level][room.z + 1][room.x]) { // bottom
 		createWall('x', 300, 12);
 	}
-	if (!maps[level][room.z - 1] || !maps[level][room.z - 1][room.x]) {
+	if (!maps[level][room.z - 1] || !maps[level][room.z - 1][room.x]) { // top
 		createWall('x', -300, 12);
 	}
 
-	if (!maps[level][room.z][room.x - 1]) {
-		createWall('z', -(gameSize + 20), 30);
+	if (!maps[level][room.z][room.x - 1]) { // left
+		createWall('z', -gameSize - 10, 30);
 	}
-	if (!maps[level][room.z][room.x + 1]) {
-		createWall('z', gameSize + 20, 30);
+	if (!maps[level][room.z][room.x + 1]) { // right
+		createWall('z', gameSize + 10, 30);
 	}
 }
 
@@ -76,10 +76,11 @@ function createWall(axis, offset, interval) {
 		translate: {},
 		rotate: {},
 	};
-	for (var i = 0; i < Math.round(2 * gameSize / interval) + 2; i += 1) {
+	var size = gameSize - (axis==='z'?50:0);
+	for (var i = 0; i < Math.round(2 * size / interval) + 2; i += 1) {
 		var height = 30 * Math.random() + 45;
 		stick.height = height;
-		stick.translate[axis] = interval * i - gameSize;
+		stick.translate[axis] = interval * i - size;
 		stick.translate[axis==='x'?'z':'x'] = offset;
 		stick.translate.y = -(height / 2);
 		stick.rotate = {

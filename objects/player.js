@@ -6,6 +6,12 @@ class Player extends LittleGuy {
 		this.lives = 3;
 		this.power = 0;
 		this.items = [];
+		this.action = 'walking';
+		this.turtle;
+
+		// player stops
+		// eating animation
+		// 
 
 		this.model.color = this.arm1.color = this.arm2.color = colors.player.shirt;
 
@@ -33,84 +39,75 @@ class Player extends LittleGuy {
 	}
 
 	update() {
-		if (keys.a === 2 || keys.ArrowLeft === 2) {
-			this.dir -= 3 * DTOR;
-		}
-		if (keys.d === 2 || keys.ArrowRight === 2) {
-			this.dir += 3 * DTOR;
-		}
-		this.speed = 0;
-		if (keys.s === 2 || keys.ArrowDown === 2) {
-			this.speed = -3;
-		}
-		if (keys.w === 2 || keys.ArrowUp === 2) {
-			this.speed = 3
-		}
-
-		// // stick plant to player
-		// for (var i = 0; i < nonPlayers.plants.length; i += 1) {
-		//     if (collision(this.model, nonPlayers.plants[i].model, 10)) {
-		//         nonPlayers.plants[i].uprooted = true;
-		//         nonPlayers.plants[i].model.translate = {
-		//             x: nonPlayers.plants[i].model.translate.x - this.model.translate.x, 
-		//             z: nonPlayers.plants[i].model.translate.z - this.model.translate.z
-		//         };
-		//         this.model.addChild(nonPlayers.plants[i].model);
-		//         nonPlayers.plants.splice(i, 1);
-		//     }
-		// }
-
-		// magic
-		if (keys.j === 2) {
-			if (!this.sound) {
-				this.sound = magic.play();
+		if (this.action === 'walking') {
+			if (keys.a === 2 || keys.ArrowLeft === 2) {
+				this.dir -= 3 * DTOR;
+			}
+			if (keys.d === 2 || keys.ArrowRight === 2) {
+				this.dir += 3 * DTOR;
+			}
+			this.speed = 0;
+			if (keys.s === 2 || keys.ArrowDown === 2) {
+				this.speed = -3;
+			}
+			if (keys.w === 2 || keys.ArrowUp === 2) {
+				this.speed = 3
 			}
 
-			this.head.translate.x = Math.cos(frame / 1.5);
-			this.arm1.rotate.x = Math.cos(frame / 2) - TAU / 3;
-			this.arm2.rotate.x = -Math.cos(frame / 2) - TAU / 3;
-			for (var nonPlayer in nonPlayers) {
-				if (['plants', 'effects', 'doors', 'keys'].indexOf(nonPlayer) !== -1) continue;
-				if (nonPlayer === 'badGuys' && player.power <= 2000) continue;
-				if (nonPlayer === 'littleGuys' && player.power <= 1000) continue;
-				if (nonPlayer === 'reindeers' && player.power <= 1000) continue;
-				for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
-					if (nonPlayers[nonPlayer][i].action === 'floating-away') continue;
-					if (collision(this.model, nonPlayers[nonPlayer][i].model, 100)) {
-						if (!nonPlayers[nonPlayer][i].effect) {
-							nonPlayers[nonPlayer][i].effect = new Effect('magic', nonPlayers[nonPlayer][i]);
-							nonPlayers.effects.push(nonPlayers[nonPlayer][i].effect);
-						}
-						nonPlayers[nonPlayer][i].action = 'floating';
-						nonPlayers[nonPlayer][i].model.translate.y -= 0.5;
-					}
+			// magic
+			if (keys.j === 2) {
+				if (!this.sound) {
+					this.sound = magic.play();
 				}
-			}
-			updatePower(-1);
-		} else {
-			// remove magic effect
-			for (var nonPlayer in nonPlayers) {
-				if (nonPlayer === 'effects') {
+
+				this.head.translate.x = Math.cos(frame / 1.5);
+				this.arm1.rotate.x = Math.cos(frame / 2) - TAU / 3;
+				this.arm2.rotate.x = -Math.cos(frame / 2) - TAU / 3;
+				for (var nonPlayer in nonPlayers) {
+					if (['plants', 'effects', 'doors', 'keys'].indexOf(nonPlayer) !== -1) continue;
+					if (nonPlayer === 'badGuys' && player.power <= 2000) continue;
+					if (nonPlayer === 'littleGuys' && player.power <= 1000) continue;
+					if (nonPlayer === 'reindeers' && player.power <= 1000) continue;
 					for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
-						if (nonPlayers[nonPlayer][i].type === 'magic') {
-							nonPlayers[nonPlayer][i].model.remove();
-							nonPlayers[nonPlayer][i].parent.effect = null;
-							nonPlayers[nonPlayer].splice(i, 1);
+						if (nonPlayers[nonPlayer][i].action === 'floating-away') continue;
+						if (collision(this.model, nonPlayers[nonPlayer][i].model, 100)) {
+							if (!nonPlayers[nonPlayer][i].effect) {
+								nonPlayers[nonPlayer][i].effect = new Effect('magic', nonPlayers[nonPlayer][i]);
+								nonPlayers.effects.push(nonPlayers[nonPlayer][i].effect);
+							}
+							nonPlayers[nonPlayer][i].action = 'floating';
+							nonPlayers[nonPlayer][i].model.translate.y -= 0.5;
 						}
 					}
 				}
-			}
+				updatePower(-1);
+			} else {
+				// remove magic effect
+				for (var nonPlayer in nonPlayers) {
+					if (nonPlayer === 'effects') {
+						for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
+							if (nonPlayers[nonPlayer][i].type === 'magic') {
+								nonPlayers[nonPlayer][i].model.remove();
+								nonPlayers[nonPlayer][i].parent.effect = null;
+								nonPlayers[nonPlayer].splice(i, 1);
+							}
+						}
+					}
+				}
 
-			if (this.sound) {
-				magic.stop(this.sound);
-				delete this.sound;
-			}
+				if (this.sound) {
+					magic.stop(this.sound);
+					delete this.sound;
+				}
 
-			this.arm1.rotate.x += this.speed * DTOR * 5;
-			this.arm2.rotate.x += this.speed * DTOR * 5;
-	
-			this.model.translate.x += this.speed * Math.cos(this.dir);
-			this.model.translate.z += this.speed * Math.sin(this.dir);
+				this.arm1.rotate.x += this.speed * DTOR * 5;
+				this.arm2.rotate.x += this.speed * DTOR * 5;
+		
+				this.model.translate.x += this.speed * Math.cos(this.dir);
+				this.model.translate.z += this.speed * Math.sin(this.dir);
+			}
+		} else if (this.action === 'eating') {
+
 		}
 
 		this.model.rotate.y = this.dir + TAU / 4;
@@ -136,3 +133,15 @@ class Player extends LittleGuy {
 		this.shadow.translate.z = this.model.translate.z;
 	}
 }
+			// // stick plant to player
+			// for (var i = 0; i < nonPlayers.plants.length; i += 1) {
+			//     if (collision(this.model, nonPlayers.plants[i].model, 10)) {
+			//         nonPlayers.plants[i].uprooted = true;
+			//         nonPlayers.plants[i].model.translate = {
+			//             x: nonPlayers.plants[i].model.translate.x - this.model.translate.x, 
+			//             z: nonPlayers.plants[i].model.translate.z - this.model.translate.z
+			//         };
+			//         this.model.addChild(nonPlayers.plants[i].model);
+			//         nonPlayers.plants.splice(i, 1);
+			//     }
+			// }
