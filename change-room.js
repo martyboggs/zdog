@@ -71,7 +71,7 @@ function createWall(axis, offset, interval) {
 		width: 3,
 		height: 65,
 		stroke: 2,
-		color: colors.stick,
+		color: lightenDarkenColor(colors.background[level], -89),
 		fill: true,
 		translate: {},
 		rotate: {},
@@ -134,6 +134,7 @@ function changeRoom(x, z) {
 
 	// remove everything but player
 	for (var nonPlayer in nonPlayers) {
+		if (nonPlayer === 'keys' && player.items.indexOf('key') !== -1) continue;
 		for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
 			nonPlayers[nonPlayer][i].model.remove();
 			if (nonPlayers[nonPlayer][i].shadow) nonPlayers[nonPlayer][i].shadow.remove();

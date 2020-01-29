@@ -61,8 +61,15 @@ class Key {
 
 	update() {
 		// collision with player
-		if (collision(this.model, player.model, 10)) {
-			this.destroy();
+		if (player.items.indexOf('key') === -1 && collision(this.model, player.model, 10)) {
+			this.model.translate = {
+				x: 5,
+				y: 0,
+				z: -5
+			};
+			this.model.rotate.z = TAU / 4;
+			this.model.rotate.y = TAU / 4;
+			player.model.addChild(this.model);
 			maps[level][room.z][room.x].keys -= 1;
 			updateItems('key');
 		}

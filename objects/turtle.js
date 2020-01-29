@@ -69,27 +69,28 @@ class Turtle {
 				this.model.rotate.y += TAU / 1080;		
 			break;
 			case 'dying':
-				player.model.addChild(this.model);
 				player.arm1.rotate.x = 0.7 * TAU;
 				player.arm1.rotate.z = 0;
 				player.arm2.rotate.x = 0.7 * TAU;
 				player.arm2.rotate.z = 0;
+				player.model.addChild(this.model);
 				this.model.translate.x = 0;
 				this.model.translate.z = -13;
-				this.model.translate.y = -40;
+				this.model.translate.y = -15;
 				this.dyingFrame = frame;
 				this.action = 'dying2';
 			break;
 			case 'dying2':
-				if (frame % 2) {
+				if (frame - this.dyingFrame < 40 && frame % 2) {
 					nonPlayers.particles.push(new Particle({
 						x: player.model.translate.x + 5 * Math.cos(player.model.rotate.y - TAU/4),
 						y: player.model.translate.y - 15,
-						z: player.model.translate.z + 5 * Math.sin(player.model.rotate.y - TAU/4),
+						z: player.model.translate.z + 5 * Math.sin(player.model.rotate.y - TAU/4)
 					}, {
 						x: Math.cos(player.model.rotate.y - TAU/4), 
 						y: 0, 
-						z: Math.sin(player.model.rotate.y - TAU/4)}));
+						z: Math.sin(player.model.rotate.y - TAU/4)
+					}));
 				}
 				this.model.translate.y = -15 + Math.abs((frame - this.dyingFrame) % 10 - 5);
 				if (frame - this.dyingFrame > 60) {

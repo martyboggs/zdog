@@ -106,6 +106,10 @@ class Player extends LittleGuy {
 				this.model.translate.x += this.speed * Math.cos(this.dir);
 				this.model.translate.z += this.speed * Math.sin(this.dir);
 			}
+
+			if (this.items.indexOf('key') !== -1) {
+				this.arm1.rotate.x = 0;
+			}
 		} else if (this.action === 'eating') {
 
 		}
