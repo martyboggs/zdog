@@ -50,7 +50,7 @@ class Turtle {
 
 	destroy() {
 		this.model.remove();
-		this.shadow.remove();
+		if (this.shadow) this.shadow.remove();
 		nonPlayers.turtles.splice(nonPlayers.turtles.indexOf(this), 1);
 	}
 
@@ -74,6 +74,7 @@ class Turtle {
 				player.arm2.rotate.x = 0.7 * TAU;
 				player.arm2.rotate.z = 0;
 				player.model.addChild(this.model);
+				this.shadow.remove();
 				this.model.translate.x = 0;
 				this.model.translate.z = -13;
 				this.model.translate.y = -15;

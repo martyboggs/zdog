@@ -10,6 +10,23 @@ class Door {
 			color: colors.door,
 			fill: true,
 		});
+
+		this.knob = new Zdog.Shape({
+			addTo: this.model,
+			translate: {x: 10, y: 0, z: 4},
+			stroke: 5,
+			color: colors.key,
+		});
+
+		this.keyhole = new Zdog.Rect({
+			addTo: this.model,
+			height: 5,
+			width: 1,
+			fill: true,
+			translate: {x: 10, y: 9, z: 5},
+			stroke: 2,
+			color: '#000',
+		});
 	}
 
 	destroy() {

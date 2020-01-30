@@ -56,7 +56,7 @@ var colors = {
 		shell: '#44608b' || getRandomColor(),
 		skin: '#c1bb27' || getRandomColor(),
 	},
-	door: '#c1bb27' || getRandomColor(),
+	door: '#926248' || getRandomColor(),
 	key: '#c1bb27' || getRandomColor(),
 	effects: {
 		magic: '#000000' + '0D',
@@ -229,6 +229,10 @@ function animate(timestamp) {
 			} else if (n.action === 'floating-away') {
 				n.ySpeed -= 0.5;
 				n.model.translate.y += n.ySpeed;
+				if (n.model.translate.y < n.y0 - 350) {
+					n.model.remove();
+					if (n.shadow) n.shadow.remove();
+				}
 			} else if (n.action === 'floating') {
 				n.model.rotate.x += 0.007;
 				n.model.rotate.z += 0.005;
