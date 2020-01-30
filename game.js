@@ -13,6 +13,7 @@ let isSpinning = true;
 var frame = 0;
 var gameOver = false;
 var paused = false;
+var stopAttacking = false;
 
 var keys = { // 1 up, 2 down
 	w: 1,
@@ -77,25 +78,26 @@ function updateHealth(change) {
 	player.health += change;
 	if (player.health <= 0) {
 		player.health = 0;
-		paused = true;
-		setTimeout(function () {
-			paused = false;
-			if (player.lives > 0) {
-				player.health = 5;
-			}
-			player.items.length = 0;
-			updateItems();
-			player.power = 0;
-			updatePower();
-			resetLevel();
-			showMessage('You died');
-			updateLives(-1);
-			changeRoom(1, 1);
-			player.model.translate.x = 0;
-			player.model.translate.z = 0;
-			document.getElementById('health').innerHTML = player.health;
-		}, 2000);
+		stopAttacking = true;
+		player.action = 'dying';
+	} else {
+		document.getElementById('health').innerHTML = player.health;
 	}
+}
+function playerDied() {
+	if (player.lives > 0) {
+		player.health = 5;
+	}
+	player.items.length = 0;
+	updateItems();
+	player.power = 0;
+	updatePower();
+	resetLevel();
+	showMessage('You died');
+	updateLives(-1);
+	changeRoom(1, 1);
+	player.model.translate.x = 0;
+	player.model.translate.z = 0;
 	document.getElementById('health').innerHTML = player.health;
 }
 function updateLives(change) {

@@ -8,6 +8,7 @@ class Player extends LittleGuy {
 		this.items = [];
 		this.action = 'walking';
 		this.turtle;
+		this.dyingFrame;
 
 		// player stops
 		// eating animation
@@ -111,7 +112,19 @@ class Player extends LittleGuy {
 				this.arm1.rotate.x = 0;
 			}
 		} else if (this.action === 'eating') {
-
+			// do nothing
+		} else  if (this.action === 'dying') {
+			if (!this.dyingFrame) this.dyingFrame = frame;
+			this.model.rotate.z += TAU / 4 / 10;
+			this.model.rotate.x += TAU / 4 / 10;
+			if (frame - this.dyingFrame > 120) {
+				this.action = 'walking';
+				this.model.rotate.x = 0;
+				this.model.rotate.z = 0;
+				this.dyingFrame = 0;
+				stopAttacking = false;
+				playerDied();
+			}
 		}
 
 		this.model.rotate.y = this.dir + TAU / 4;

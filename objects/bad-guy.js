@@ -14,8 +14,10 @@ class BadGuy extends LittleGuy {
 				player.model.translate.z - this.model.translate.z,
 				player.model.translate.x - this.model.translate.x, 
 			);
-			this.model.translate.x += this.maxSpeed * Math.cos(this.model.rotate.y);
-			this.model.translate.z += this.maxSpeed * Math.sin(this.model.rotate.y);
+			if (!stopAttacking) {
+				this.model.translate.x += this.maxSpeed * Math.cos(this.model.rotate.y);
+				this.model.translate.z += this.maxSpeed * Math.sin(this.model.rotate.y);
+			}
 
 			// face forward
 			this.model.rotate.y += TAU / 4;
@@ -23,7 +25,7 @@ class BadGuy extends LittleGuy {
 
 		// collision with player
 		if (this.action !== 'floating-away') {
-			if (!gameOver && !player.stunnedTimer && collision(this.model, player.model, 10)) {
+			if (!gameOver && !stopAttacking && !player.stunnedTimer && collision(this.model, player.model, 10)) {
 				updateHealth(-1);
 				player.stunnedTimer = 30;
 
