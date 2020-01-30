@@ -34,8 +34,9 @@ class Door {
 
 	update() {
 		// collision with player
-		if (player.items.indexOf('key') !== -1 && collision(this.model, player.model, 20)) {
+		if (!gameOver && player.items.indexOf('key') !== -1 && collision(this.model, player.model, 20)) {
 			nonPlayers.keys[0].model.remove();
+			nonPlayers.keys = [];
 			player.items.splice(player.items.indexOf('key'), 1);
 			updateItems();
 			paused = true;

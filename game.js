@@ -51,7 +51,7 @@ var colors = {
 		shirt: '' || getRandomColor(),
 	},
 	steve: {
-		shirt: '#D39718' || getRandomColor(),
+		shirt: '#E7FB26' || getRandomColor(),
 		pants: '#A31777' || getRandomColor(),
 	},
 	turtle: {

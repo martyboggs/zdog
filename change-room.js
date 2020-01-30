@@ -1,5 +1,5 @@
 var room = {x: 1, z: 1};
-var level = 0;
+var level = 3;
 var maps = [
 	[
 		[{reindeers: 10}, {turtles: 4, doors: 1}, {}],

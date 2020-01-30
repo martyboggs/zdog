@@ -10,10 +10,6 @@ class Player extends LittleGuy {
 		this.turtle;
 		this.dyingFrame;
 
-		// player stops
-		// eating animation
-		// 
-
 		this.model.color = this.arm1.color = this.arm2.color = colors.player.shirt;
 
 		new Zdog.Rect({
@@ -116,7 +112,7 @@ class Player extends LittleGuy {
 		} else  if (this.action === 'dying') {
 			if (!this.dyingFrame) this.dyingFrame = frame;
 			this.model.rotate.z += TAU / 4 / 10;
-			this.model.rotate.x += TAU / 4 / 10;
+			this.model.rotate.x -= TAU / 4 / 10;
 			if (frame - this.dyingFrame > 120) {
 				this.action = 'walking';
 				this.model.rotate.x = 0;

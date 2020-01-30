@@ -13,7 +13,7 @@ class LittleGuy {
 			width: 5,
 			height: 5,
 			translate: { x: inc(-200, 200), y: this.y0, z: inc(-200, 200) },
-			rotate: {y: Math.random() * TAU},
+			rotate: {x: 0, y: Math.random() * TAU, z: 0},
 			color: colors.guys.shirt,
 		});
 		this.head = new Zdog.Shape({

@@ -14,7 +14,7 @@ class BadGuy extends LittleGuy {
 				player.model.translate.z - this.model.translate.z,
 				player.model.translate.x - this.model.translate.x, 
 			);
-			if (!stopAttacking) {
+			if (!gameOver && !stopAttacking) {
 				this.model.translate.x += this.maxSpeed * Math.cos(this.model.rotate.y);
 				this.model.translate.z += this.maxSpeed * Math.sin(this.model.rotate.y);
 			}
