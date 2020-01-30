@@ -38,15 +38,20 @@ class Door {
 			nonPlayers.keys[0].model.remove();
 			player.items.splice(player.items.indexOf('key'), 1);
 			updateItems();
-			if (!maps[level + 1]) {
-				gameOver = true;
-				showMessage('You Win!');
-			} else {
-				level++;
-				showMessage('Level ' + (level + 1));
-				changeRoom(1, 1);
-				player.model.translate.x = player.model.translate.z = 0;
-			}
+			paused = true;
+			setTimeout(function () {
+				if (!maps[level + 1]) {
+					gameOver = true;
+					showMessage('You Win!');
+				} else {
+					level++;
+					showMessage('Level ' + (level + 1));
+					changeRoom(1, 1);
+					player.model.translate.x = player.model.translate.z = 0;
+				}
+				paused = false;
+			}, 2000);
+
 		}
 	}
 }

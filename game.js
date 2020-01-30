@@ -12,6 +12,7 @@ const DTOR = TAU / 360;
 let isSpinning = true;
 var frame = 0;
 var gameOver = false;
+var paused = false;
 
 var keys = { // 1 up, 2 down
 	w: 1,
@@ -57,7 +58,7 @@ var colors = {
 		skin: '#c1bb27' || getRandomColor(),
 	},
 	door: '#926248' || getRandomColor(),
-	key: '#c1bb27' || getRandomColor(),
+	key: '#dcc334' || getRandomColor(),
 	effects: {
 		magic: '#000000' + '0D',
 	},
@@ -76,19 +77,24 @@ function updateHealth(change) {
 	player.health += change;
 	if (player.health <= 0) {
 		player.health = 0;
-		if (player.lives > 0) {
-			player.health = 5;
-		}
-		player.items.length = 0;
-		updateItems();
-		player.power = 0;
-		updatePower();
-		resetLevel();
-		showMessage('You died');
-		updateLives(-1);
-		changeRoom(1, 1);
-		player.model.translate.x = 0;
-		player.model.translate.z = 0;
+		paused = true;
+		setTimeout(function () {
+			paused = false;
+			if (player.lives > 0) {
+				player.health = 5;
+			}
+			player.items.length = 0;
+			updateItems();
+			player.power = 0;
+			updatePower();
+			resetLevel();
+			showMessage('You died');
+			updateLives(-1);
+			changeRoom(1, 1);
+			player.model.translate.x = 0;
+			player.model.translate.z = 0;
+			document.getElementById('health').innerHTML = player.health;
+		}, 2000);
 	}
 	document.getElementById('health').innerHTML = player.health;
 }
@@ -201,53 +207,55 @@ document.getElementById('power').innerHTML = player.power;
 var averageTimePerFrame = 0;
 var time = 0;
 function animate(timestamp) {
-	for (var nonPlayer in nonPlayers) {
-		for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
-			nonPlayers[nonPlayer][i].update();
+	if (!paused) {
+		for (var nonPlayer in nonPlayers) {
+			for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
+				nonPlayers[nonPlayer][i].update();
+			}
 		}
-	}
-	player.update();
+		player.update();
 
-	// gravity
-	let n;
-	for (var nonPlayer in nonPlayers) {
-		if (['plants', 'effects', 'doors', 'keys'].indexOf(nonPlayer) !== -1) continue;
-		for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
-			n = nonPlayers[nonPlayer][i];
-			if (n.action === 'walking') {
-				if (n.model.translate.y < n.y0 - 50) {
-					n.action = 'floating-away';
-					n.ySpeed = 0;
-					maps[level][room.z][room.x][nonPlayer] -= 1;
-				} else if (n.model.translate.y < n.y0) {
-					n.ySpeed += 0.5;
+		// gravity
+		let n;
+		for (var nonPlayer in nonPlayers) {
+			if (['plants', 'effects', 'doors', 'keys'].indexOf(nonPlayer) !== -1) continue;
+			for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
+				n = nonPlayers[nonPlayer][i];
+				if (n.action === 'walking') {
+					if (n.model.translate.y < n.y0 - 50) {
+						n.action = 'floating-away';
+						n.ySpeed = 0;
+						maps[level][room.z][room.x][nonPlayer] -= 1;
+					} else if (n.model.translate.y < n.y0) {
+						n.ySpeed += 0.5;
+						n.model.translate.y += n.ySpeed;
+					} else {
+						n.model.translate.y = n.y0;
+						n.model.rotate.x = 0;
+						n.model.rotate.z = 0;
+					}
+				} else if (n.action === 'floating-away') {
+					n.ySpeed -= 0.5;
 					n.model.translate.y += n.ySpeed;
-				} else {
-					n.model.translate.y = n.y0;
-					n.model.rotate.x = 0;
-					n.model.rotate.z = 0;
-				}
-			} else if (n.action === 'floating-away') {
-				n.ySpeed -= 0.5;
-				n.model.translate.y += n.ySpeed;
-				if (n.model.translate.y < n.y0 - 350) {
-					n.model.remove();
-					if (n.shadow) n.shadow.remove();
-				}
-			} else if (n.action === 'floating') {
-				n.model.rotate.x += 0.007;
-				n.model.rotate.z += 0.005;
-				if (keys.j === 1) {
-					n.action = 'walking';
-					n.ySpeed = 0;
+					if (n.model.translate.y < n.y0 - 350) {
+						n.model.remove();
+						if (n.shadow) n.shadow.remove();
+					}
+				} else if (n.action === 'floating') {
+					n.model.rotate.x += 0.007;
+					n.model.rotate.z += 0.005;
+					if (keys.j === 1) {
+						n.action = 'walking';
+						n.ySpeed = 0;
+					}
 				}
 			}
 		}
+
+		illo.translate.x = -player.model.translate.x;
+
+		illo.rotate.y = -player.model.translate.x / 2000;
 	}
-
-	illo.translate.x = -player.model.translate.x;
-
-	illo.rotate.y = -player.model.translate.x / 2000;
 
 	illo.updateRenderGraph();
 	frame = requestAnimationFrame( animate );
