@@ -35,9 +35,11 @@ class Door {
 	update() {
 		// collision with player
 		if (player.items.indexOf('key') !== -1 && collision(this.model, player.model, 20)) {
+			nonPlayers.keys[0].model.remove();
 			player.items.splice(player.items.indexOf('key'), 1);
 			updateItems();
 			if (!maps[level + 1]) {
+				gameOver = true;
 				showMessage('You Win!');
 			} else {
 				level++;

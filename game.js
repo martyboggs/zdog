@@ -4,12 +4,14 @@
 // more complex gameplay, more items
 // sounds and music
 // reindeer attack
+// animations for death, open door, and winning
 
 
 const TAU = Zdog.TAU; // easier to read constant
 const DTOR = TAU / 360;
 let isSpinning = true;
 var frame = 0;
+var gameOver = false;
 
 var keys = { // 1 up, 2 down
 	w: 1,
@@ -93,6 +95,7 @@ function updateHealth(change) {
 function updateLives(change) {
 	player.lives += change;
 	if (player.lives < 0) {
+		gameOver = true;
 		showMessage('Game Over', 60 * 1000);
 	}
 	if (player.lives >= 0) {

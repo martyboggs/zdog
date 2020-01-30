@@ -23,7 +23,7 @@ class BadGuy extends LittleGuy {
 
 		// collision with player
 		if (this.action !== 'floating-away') {
-			if (!player.stunnedTimer && collision(this.model, player.model, 10)) {
+			if (!gameOver && !player.stunnedTimer && collision(this.model, player.model, 10)) {
 				updateHealth(-1);
 				player.stunnedTimer = 30;
 
