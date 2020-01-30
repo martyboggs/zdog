@@ -3,8 +3,6 @@
 // collisions with inner walls
 // more complex gameplay, more items
 // sounds and music
-// eat turtles animation
-// show message when you eat your first turtle
 // reindeer attack
 
 

@@ -1,5 +1,5 @@
 var music = $buzz({
-	src: 'sounds/cantina.wav',
+	src: 'sounds/zdog.wav',
 	loop: true,
 	volume: 0.5,
 });
