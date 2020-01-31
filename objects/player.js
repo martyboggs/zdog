@@ -60,35 +60,30 @@ class Player extends LittleGuy {
 				this.head.translate.x = Math.cos(frame / 1.5);
 				this.arm1.rotate.x = Math.cos(frame / 2) - TAU / 3;
 				this.arm2.rotate.x = -Math.cos(frame / 2) - TAU / 3;
-				for (var nonPlayer in nonPlayers) {
-					if (['plants', 'effects', 'doors', 'keys'].indexOf(nonPlayer) !== -1) continue;
-					if (nonPlayer === 'badGuys' && player.power <= 2000) continue;
-					if (nonPlayer === 'littleGuys' && player.power <= 1000) continue;
-					if (nonPlayer === 'reindeers' && player.power <= 1000) continue;
-					for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
-						if (nonPlayers[nonPlayer][i].action === 'floating-away') continue;
-						if (collision(this.model, nonPlayers[nonPlayer][i].model, 100)) {
-							if (!nonPlayers[nonPlayer][i].effect) {
-								nonPlayers[nonPlayer][i].effect = new Effect('magic', nonPlayers[nonPlayer][i]);
-								nonPlayers.effects.push(nonPlayers[nonPlayer][i].effect);
+				for (var j = 0; j < canFloat.length; j += 1) {
+					if (canFloat[j] === 'badGuys' && player.power <= 2000) continue;
+					if (canFloat[j] === 'littleGuys' && player.power <= 1000) continue;
+					if (canFloat[j] === 'reindeers' && player.power <= 1000) continue;
+					for (var i = 0; i < nonPlayers[canFloat[j]].length; i += 1) {
+						if (nonPlayers[canFloat[j]][i].action === 'floating-away') continue;
+						if (collision(this.model, nonPlayers[canFloat[j]][i].model, 100)) {
+							if (!nonPlayers[canFloat[j]][i].effect) {
+								nonPlayers[canFloat[j]][i].effect = new Effect('magic', nonPlayers[canFloat[j]][i]);
+								nonPlayers.effects.push(nonPlayers[canFloat[j]][i].effect);
 							}
-							nonPlayers[nonPlayer][i].action = 'floating';
-							nonPlayers[nonPlayer][i].model.translate.y -= 0.5;
+							nonPlayers[canFloat[j]][i].action = 'floating';
+							nonPlayers[canFloat[j]][i].model.translate.y -= 0.5;
 						}
 					}
 				}
 				updatePower(-1);
 			} else {
 				// remove magic effect
-				for (var nonPlayer in nonPlayers) {
-					if (nonPlayer === 'effects') {
-						for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
-							if (nonPlayers[nonPlayer][i].type === 'magic') {
-								nonPlayers[nonPlayer][i].model.remove();
-								nonPlayers[nonPlayer][i].parent.effect = null;
-								nonPlayers[nonPlayer].splice(i, 1);
-							}
-						}
+				for (var i = 0; i < nonPlayers.effects.length; i += 1) {
+					if (nonPlayers.effects[i].type === 'magic') {
+						nonPlayers.effects[i].model.remove();
+						nonPlayers.effects[i].parent.effect = null;
+						nonPlayers.effects.splice(i, 1);
 					}
 				}
 

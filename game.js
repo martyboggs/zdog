@@ -14,6 +14,7 @@ var frame = 0;
 var gameOver = false;
 var paused = false;
 var stopAttacking = false;
+var canFloat = ['reindeers', 'badGuys', 'littleGuys', 'turtles'];
 
 var keys = { // 1 up, 2 down
 	w: 1,
@@ -219,15 +220,14 @@ function animate(timestamp) {
 
 		// gravity
 		let n;
-		for (var nonPlayer in nonPlayers) {
-			if (['plants', 'effects', 'doors', 'keys'].indexOf(nonPlayer) !== -1) continue;
-			for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
-				n = nonPlayers[nonPlayer][i];
+		for (var j = 0; j < canFloat.length; j += 1) {
+			for (var i = 0; i < nonPlayers[canFloat[j]].length; i += 1) {
+				n = nonPlayers[canFloat[j]][i];
 				if (n.action === 'walking') {
 					if (n.model.translate.y < n.y0 - 50) {
 						n.action = 'floating-away';
 						n.ySpeed = 0;
-						maps[level][room.z][room.x][nonPlayer] -= 1;
+						maps[level][room.z][room.x][canFloat[j]] -= 1;
 					} else if (n.model.translate.y < n.y0) {
 						n.ySpeed += 0.5;
 						n.model.translate.y += n.ySpeed;

@@ -1,13 +1,10 @@
 class Reindeer {
 	constructor() {
-		this.goalAngle;
 		this.action = 'walking';
-		this.turn = Math.random() > 0.5 ? 1 : -1;
-		this.speed;
-		this.maxSpeed = 0.5 + 0.5 * Math.random();
 		this.y0 = -52;
 		this.ySpeed = 0;
 		this.color = lightenDarkenColor(colors.reindeer.skin, 50 * Math.random() - 25);
+		this.sustainRun = -121;
 
 		this.model = new Zdog.Rect({
 			addTo: illo,
@@ -19,6 +16,14 @@ class Reindeer {
 			color: this.color,
 			fill: true,
 		});
+		this.currentAngle = this.model.rotate.y;
+		this.startSpeed = 0.7 + 0.5 * Math.random();
+		this.speed = this.startSpeed;
+		this.goalSpeed = this.speed;
+		this.matchPlayerAngle = 0.03;
+		this.matchAngle = 0.025;
+		this.deceleration = -0.01;
+		this.acceleration = 0.1;
 		
 		this.head = new Zdog.Shape({
 			addTo: this.model,
@@ -141,8 +146,6 @@ class Reindeer {
 	}
 
 	update() {
-		this.speed = this.maxSpeed;
-
 		switch (this.action) {
 			case 'walking':
 				// // remove
@@ -155,27 +158,44 @@ class Reindeer {
 				// for (var i = obstacles.length - 1; i >= 0; i -= 1) {
 				//     if (obstacles[i] === this) continue;
 				//     if (collision(this.model, obstacles[i].model, 50)) {
-				//         this.speed = 0.25;
+				//         this.goalSpeed = 0.25;
 				//         this.turn = this.turn === 1 ? -1 : 1;
 				//     }
 				// }
 
 				// bob head
-				this.head.translate.y = 2 * Math.cos(frame * this.speed / 15) - 30;
+				this.head.translate.y = 2 * Math.cos(frame * Math.round(this.speed) / 15) - 30;
 
 				// move legs
 				for (var i = 0; i < this.legs.length; i += 1) {
-					this.legs[i].rotate.z = (Math.abs((frame + i * 20) % 60 - 30) - 15) * DTOR;
+					this.legs[i].rotate.z = (
+						Math.abs(
+							(frame + i * 20) % 60 - 30
+						) - 15
+					) * DTOR * this.speed;
 				}
 
 				// turn
-				this.model.rotate.y = this.model.rotate.y + this.turn * TAU / 1080;
+				// this.model.rotate.y += this.goalSpeed * TAU / 1080;
+				var diff = Math.atan2(
+					player.model.translate.z - this.model.translate.z, 
+					player.model.translate.x - this.model.translate.x,
+				);
 
-				// move reindeer
-				this.model.translate.x += this.speed * Math.cos(this.model.rotate.y);
-				this.model.translate.z += this.speed * Math.sin(this.model.rotate.y);
+				if (frame - this.sustainRun < 120, Math.abs(this.currentAngle - diff) < TAU / 32) {
+					// fast!
+					this.goalSpeed = this.startSpeed * 3;
+					if (!this.sustainRun) this.sustainRun = frame;
+				} else {
+					this.sustainRun = 0;
+					this.goalSpeed = this.startSpeed;
+					this.model.rotate.y += diff > this.model.rotate.y ? this.matchPlayerAngle : -this.matchPlayerAngle;
+				}
+
+				// ...
+				// if (Math.abs(this.model.rotate.y - diff) > Math.PI) {
 			break;
-			case 'reading':
+			case 'breaking':
 				for (var i = 0; i < this.legs.length; i += 1) {
 					if (this.legs[i].rotate.z > -60 * DTOR) {
 						this.legs[i].rotate.z -= 1 * DTOR;
@@ -184,6 +204,26 @@ class Reindeer {
 			break;
 		}
 
+		// collision with player
+		if (this.action !== 'floating-away') {
+			if (!gameOver && !stopAttacking && !player.stunnedTimer && collision(this.model, player.model, 10)) {
+				updateHealth(-1);
+				player.stunnedTimer = 30;
+
+				player.model.translate.x += 30 * Math.cos(this.model.rotate.y);
+				player.model.translate.z += 30 * Math.sin(this.model.rotate.y);
+			}
+		}
+
+		this.speed += this.speed < this.goalSpeed ? this.acceleration : this.deceleration;
+		this.currentAngle += this.currentAngle < this.model.rotate.y ? this.matchAngle : -this.matchAngle;
+
+		// move reindeer
+		if (this.action !== 'floating' && this.action !== 'floating-away') {
+			this.model.translate.x += this.speed * Math.cos(this.currentAngle);
+			this.model.translate.z += this.speed * Math.sin(this.currentAngle);
+		}
+		
 		this.boundaryCollision();
 
 		if (this.shadow) {

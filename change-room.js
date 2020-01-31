@@ -3,7 +3,7 @@ var level = 0;
 var maps = [
 	[
 		[{reindeers: 10}, {turtles: 4, doors: 1}, {}],
-		[{reindeers: 4},  {steves: 1, keys: 1, turtles: 3},   {reindeers: 2, littleGuys: 4}],
+		[{reindeers: 4},  {reindeers: 1, steves: 1, keys: 1, turtles: 3},   {reindeers: 2, littleGuys: 4}],
 		[{},              {},               {reindeers: 5}],
 		[null,            {},               null],
 	],
