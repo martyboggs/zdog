@@ -12,10 +12,19 @@ const DTOR = TAU / 360;
 let isSpinning = true;
 var frame = 0;
 var gameOver = false;
-var paused = false;
+var paused = true;
 var stopAttacking = false;
 var canFloat = ['reindeers', 'badGuys', 'littleGuys', 'turtles'];
 var gameName = 'Super Doors';
+
+document.body.addEventListener('keydown', audioFixer, {once: true});
+
+function audioFixer(e) {
+	$buzz.context().resume().then(function () {
+		paused = false;
+		music.play()
+	});
+}
 
 var keys = { // 1 up, 2 down
 	w: 1,

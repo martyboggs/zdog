@@ -20,9 +20,3 @@ var keysound = $buzz({
 	volume: 1.2,
 	preload: true,
 });
-
-window.confirm('Are you ready to play Super Doors?', function (result) {
-	$buzz.context().resume().then(function () {
-		music.play()
-	});
-});
