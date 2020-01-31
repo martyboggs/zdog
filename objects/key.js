@@ -61,7 +61,7 @@ class Key {
 
 	update() {
 		// collision with player
-		if (player.items.indexOf('key') === -1 && collision(this.model, player.model, 10)) {
+		if (!player.key && collision(this.model, player.model, 10)) {
 			this.model.translate = {
 				x: 5,
 				y: 0,
@@ -72,7 +72,7 @@ class Key {
 			this.shadow.remove();
 			player.model.addChild(this.model);
 			maps[level][room.z][room.x].keys -= 1;
-			updateItems('key');
+			player.key = this;
 		}
 
 		if (this.shadow) {

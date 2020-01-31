@@ -34,11 +34,9 @@ class Door {
 
 	update() {
 		// collision with player
-		if (!paused && !gameOver && player.items.indexOf('key') !== -1 && collision(this.model, player.model, 20)) {
-			nonPlayers.keys[0].model.remove();
-			nonPlayers.keys = [];
-			player.items.splice(player.items.indexOf('key'), 1);
-			updateItems();
+		if (!paused && !gameOver && player.key && collision(this.model, player.model, 20)) {
+			player.key.model.remove();
+			player.key = null;
 			paused = true;
 			setTimeout(function () {
 				if (!maps[level + 1]) {

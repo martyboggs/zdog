@@ -102,8 +102,7 @@ function playerDied() {
 	if (player.lives > 0) {
 		player.health = 5;
 	}
-	player.items.length = 0;
-	updateItems();
+	player.key = null;
 	player.power = 0;
 	updatePower();
 	resetLevel();
@@ -123,12 +122,6 @@ function updateLives(change) {
 	if (player.lives >= 0) {
 		document.getElementById('lives').innerHTML = player.lives;
 	}
-}
-function updateItems(item) {
-	if (item) {
-		player.items.push(item);
-	}
-	document.getElementById('items').innerHTML = player.items.length ? 'Items: ' + player.items.join(', ') : '';
 }
 function updatePower(change) {
 	if (change) {
@@ -172,6 +165,16 @@ function lightenDarkenColor(col, amt) {
 	if (g > 255) g = 255;
 	else if (g < 0) g = 0;
 	return (usePound?'#':'') + (g | (b << 8) | (r << 16)).toString(16);
+}
+
+function followAngle(a1, a2, rad) {
+	// if (a1 > Math.PI) a1 -= TAU;
+	// if (a1 < -Math.PI) a1 += TAU;
+	if (Math.abs(a1 - a2) > Math.PI) {
+		return a1 < a2 ? -rad : rad;
+	} else {
+		return a1 < a2 ? rad : -rad;
+	}
 }
 
 window.addEventListener('keydown', function (e) {

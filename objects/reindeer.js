@@ -189,11 +189,12 @@ class Reindeer {
 				} else {
 					this.sustainRun = 0;
 					this.goalSpeed = this.startSpeed;
-					this.model.rotate.y += diff > this.model.rotate.y ? this.matchPlayerAngle : -this.matchPlayerAngle;
-				}
 
-				// ...
-				// if (Math.abs(this.model.rotate.y - diff) > Math.PI) {
+					// face player
+					if (this.model.rotate.y > Math.PI) this.model.rotate.y -= TAU;
+					if (this.model.rotate.y < -Math.PI) this.model.rotate.y += TAU;
+					this.model.rotate.y += followAngle(this.model.rotate.y, diff, this.matchPlayerAngle);
+				}
 			break;
 			case 'breaking':
 				for (var i = 0; i < this.legs.length; i += 1) {
@@ -216,7 +217,11 @@ class Reindeer {
 		}
 
 		this.speed += this.speed < this.goalSpeed ? this.acceleration : this.deceleration;
-		this.currentAngle += this.currentAngle < this.model.rotate.y ? this.matchAngle : -this.matchAngle;
+
+		// follow player angle
+		if (this.currentAngle > Math.PI) this.currentAngle -= TAU;
+		if (this.currentAngle < -Math.PI) this.currentAngle += TAU;
+		this.currentAngle += followAngle(this.currentAngle, this.model.rotate.y, this.matchAngle);
 
 		// move reindeer
 		if (this.action !== 'floating' && this.action !== 'floating-away') {

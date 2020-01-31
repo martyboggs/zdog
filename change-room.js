@@ -1,5 +1,5 @@
 var room = {x: 1, z: 1};
-var level = 1;
+var level = 0;
 var maps = [
 	[
 		[{reindeers: 10}, {turtles: 4, doors: 1}, {}],
@@ -9,7 +9,7 @@ var maps = [
 	],
 	[
 		[{reindeers: 1},              {turtles: 1}, {}],
-		[{reindeers: 4},              {reindeers: 2, turtles: 3},   {badGuys: 5, reindeers: 2, littleGuys: 4}],
+		[{reindeers: 4},              {reindeers: 1, turtles: 3},   {badGuys: 5, reindeers: 2, littleGuys: 4}],
 		[{doors: 1, badGuys: 3},      {keys: 1},               {reindeers: 5}],
 		[null,                        {reindeers: 15},           null],
 	],
@@ -134,7 +134,7 @@ function changeRoom(x, z) {
 
 	// remove everything but player
 	for (var nonPlayer in nonPlayers) {
-		if (nonPlayer === 'keys' && player.items.indexOf('key') !== -1) continue;
+		if (nonPlayer === 'keys' && player.key) continue;
 		for (var i = 0; i < nonPlayers[nonPlayer].length; i += 1) {
 			nonPlayers[nonPlayer][i].model.remove();
 			if (nonPlayers[nonPlayer][i].shadow) nonPlayers[nonPlayer][i].shadow.remove();

@@ -5,10 +5,10 @@ class Player extends LittleGuy {
 		this.health = 5;
 		this.lives = 3;
 		this.power = 0;
-		this.items = [];
 		this.action = 'walking';
 		this.turtle;
 		this.dyingFrame;
+		this.key;
 
 		this.model.color = this.arm1.color = this.arm2.color = colors.player.shirt;
 
@@ -99,7 +99,7 @@ class Player extends LittleGuy {
 				this.model.translate.z += this.speed * Math.sin(this.dir);
 			}
 
-			if (this.items.indexOf('key') !== -1) {
+			if (this.key) {
 				this.arm1.rotate.x = 0;
 			}
 		} else if (this.action === 'eating') {
