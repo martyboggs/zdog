@@ -45,7 +45,7 @@ class Player extends LittleGuy {
 			}
 			this.speed = 0;
 			if (keys.s === 2 || keys.ArrowDown === 2) {
-				this.speed = -3;
+				this.speed = -2;
 			}
 			if (keys.w === 2 || keys.ArrowUp === 2) {
 				this.speed = 3

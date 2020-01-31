@@ -3,9 +3,9 @@
 // collisions with inner walls
 // more complex gameplay, more items
 // sounds and music
-// reindeer attack
-// animations for death, open door, and winning
-
+// animations open door, and winning
+// make enemies ignore sometimes.. make game harder
+// 
 
 const TAU = Zdog.TAU; // easier to read constant
 const DTOR = TAU / 360;
@@ -16,13 +16,16 @@ var paused = true;
 var stopAttacking = false;
 var canFloat = ['reindeers', 'badGuys', 'littleGuys', 'turtles'];
 var gameName = 'Super Doors';
-
+var introMessage = 'WASD or Arrow Keys, j for magic';
+var beginMessage = '<br>press any key to begin';
+showMessage(introMessage + beginMessage, 120000);
 document.body.addEventListener('keydown', audioFixer, {once: true});
 
 function audioFixer(e) {
 	$buzz.context().resume().then(function () {
 		paused = false;
 		music.play()
+		showMessage(introMessage, 3000);
 	});
 }
 
@@ -135,10 +138,12 @@ function updatePower(change) {
 	if (player.power < 0) player.power = 0;
 	document.getElementById('power').innerHTML = player.power;
 }
+var timeout;
 function showMessage(message, time) {
 	var m = document.getElementById('messages');
 	m.innerHTML = message;
-	setTimeout(function () {
+	if (timeout) clearTimeout(timeout);
+	timeout = setTimeout(function () {
 		m.innerHTML = '';
 	}, time ? time : 5000);
 }
