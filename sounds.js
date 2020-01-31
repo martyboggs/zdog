@@ -3,7 +3,6 @@ var music = $buzz({
 	loop: true,
 	volume: 0.5,
 });
-music.play()
 
 var magic = $buzz({
 	src: 'sounds/magic.wav',
@@ -22,3 +21,8 @@ var keysound = $buzz({
 	preload: true,
 });
 
+window.confirm('Are you ready to play Super Doors?', function (result) {
+	$buzz.context().resume().then(function () {
+		music.play()
+	});
+});

@@ -15,6 +15,7 @@ var gameOver = false;
 var paused = false;
 var stopAttacking = false;
 var canFloat = ['reindeers', 'badGuys', 'littleGuys', 'turtles'];
+var gameName = 'Super Doors';
 
 var keys = { // 1 up, 2 down
 	w: 1,
