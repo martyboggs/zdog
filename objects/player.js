@@ -121,9 +121,9 @@ class Player extends LittleGuy {
 		this.model.rotate.y = this.dir + TAU / 4;
 
 		// change room
-		if (this.model.translate.z < -gameSize + 100) {
+		if (this.model.translate.z < -gameSize) {
 			changeRoom(room.x, room.z - 1);
-		} else if (this.model.translate.z > gameSize - 100) {
+		} else if (this.model.translate.z > gameSize) {
 			changeRoom(room.x, room.z + 1);
 		}
 		if (this.model.translate.x < -gameSize) {

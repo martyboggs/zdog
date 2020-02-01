@@ -1,5 +1,5 @@
 var room = {x: 1, z: 1};
-var level = 1;
+var level = 3;
 var maps = [
 	[
 		[{reindeers: 10}, {turtles: 4, doors: 1}, {}],
@@ -51,25 +51,25 @@ function resetLevel() {
 
 function addBoundaries() {
 	if (!maps[level][room.z + 1] || !maps[level][room.z + 1][room.x]) { // bottom
-		createWall('x', 300, 12);
+		createWall('x', gameSize, 12);
 	} else {
-		createLine('x', 300, 12);
+		createLine('x', gameSize, 12);
 	}
 	if (!maps[level][room.z - 1] || !maps[level][room.z - 1][room.x]) { // top
-		createWall('x', -300, 12);
+		createWall('x', -gameSize, 12);
 	} else {
-		createLine('x', -300, 12);
+		createLine('x', -gameSize, 12);
 	}
 
 	if (!maps[level][room.z][room.x - 1]) { // left
-		createWall('z', -gameSize - 10, 30);
+		createWall('z', -gameSize, 30);
 	} else {
-		createLine('z', -gameSize - 10, 30);
+		createLine('z', -gameSize, 30);
 	}
 	if (!maps[level][room.z][room.x + 1]) { // right
-		createWall('z', gameSize + 10, 30);
+		createWall('z', gameSize, 30);
 	} else {
-		createLine('z', gameSize + 10, 30);
+		createLine('z', gameSize, 30);
 	}
 }
 
@@ -84,8 +84,8 @@ function createWall(axis, offset, interval) {
 		translate: {},
 		rotate: {},
 	};
-	var size = gameSize - (axis==='z'?50:0);
-	for (var i = -1; i < Math.round(2 * size / interval) + 2; i += 1) {
+	var size = gameSize;
+	for (var i = 1; i < Math.round(2 * size / interval); i += 1) {
 		var height = 30 * Math.random() + 45;
 		stick.height = height;
 		stick.translate[axis] = interval * i - size;
@@ -103,7 +103,7 @@ function createWall(axis, offset, interval) {
 }
 
 function createLine(axis, offset, interval) {
-	var size = gameSize - (axis==='z'?50:0);
+	var size = gameSize;
 	var line = {
 		addTo: illo,
 		color: lightenDarkenColor(colors.background[level], -20),
@@ -129,9 +129,9 @@ function changeRoom(x, z) {
 
 	if (!maps[level][z] || !maps[level][z][x]) { // if no room
 		if (z - room.z === 1) { // if moving down
-			player.model.translate.z = gameSize - 100;
+			player.model.translate.z = gameSize;
 		} else if (z - room.z === -1) { // if moving up
-			player.model.translate.z = -gameSize + 100;
+			player.model.translate.z = -gameSize;
 		}
 
 		if (x - room.x === 1) {
@@ -143,15 +143,15 @@ function changeRoom(x, z) {
 	}
 
 	if (z - room.z === 1) {
-		player.model.translate.z = -(gameSize - 60) + 100;
+		player.model.translate.z = -(gameSize - 60);
 	} else if (z - room.z === -1) {
-		player.model.translate.z = (gameSize - 60) - 100;
+		player.model.translate.z = gameSize - 60;
 	}
 
 	if (x - room.x === 1) {
 		player.model.translate.x = -(gameSize - 60);
 	} else if (x - room.x === -1) {
-		player.model.translate.x = (gameSize - 60);
+		player.model.translate.x = gameSize - 60;
 	}
 
 	room.x = x;

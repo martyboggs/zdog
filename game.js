@@ -201,7 +201,7 @@ let illo = new Zdog.Illustration({
 	dragRotate: true,
 	zoom: 2,
 	rotate: {x: -TAU / 16},
-	translate: {y: 80},
+	translate: {y: 4},
 });
 
 var nonPlayers = {

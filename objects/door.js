@@ -38,6 +38,8 @@ class Door {
 			player.key.model.remove();
 			player.key = null;
 			paused = true;
+			// no changeRoom after you win... so
+			nonPlayers.keys.length = 0;
 			setTimeout(function () {
 				if (!maps[level + 1]) {
 					gameOver = true;
