@@ -1,5 +1,5 @@
 var room = {x: 1, z: 1};
-var level = 0;
+var level = 1;
 var maps = [
 	[
 		[{reindeers: 10}, {turtles: 4, doors: 1}, {}],
@@ -52,16 +52,24 @@ function resetLevel() {
 function addBoundaries() {
 	if (!maps[level][room.z + 1] || !maps[level][room.z + 1][room.x]) { // bottom
 		createWall('x', 300, 12);
+	} else {
+		createLine('x', 300, 12);
 	}
 	if (!maps[level][room.z - 1] || !maps[level][room.z - 1][room.x]) { // top
 		createWall('x', -300, 12);
+	} else {
+		createLine('x', -300, 12);
 	}
 
 	if (!maps[level][room.z][room.x - 1]) { // left
 		createWall('z', -gameSize - 10, 30);
+	} else {
+		createLine('z', -gameSize - 10, 30);
 	}
 	if (!maps[level][room.z][room.x + 1]) { // right
 		createWall('z', gameSize + 10, 30);
+	} else {
+		createLine('z', gameSize + 10, 30);
 	}
 }
 
@@ -77,7 +85,7 @@ function createWall(axis, offset, interval) {
 		rotate: {},
 	};
 	var size = gameSize - (axis==='z'?50:0);
-	for (var i = 0; i < Math.round(2 * size / interval) + 2; i += 1) {
+	for (var i = -1; i < Math.round(2 * size / interval) + 2; i += 1) {
 		var height = 30 * Math.random() + 45;
 		stick.height = height;
 		stick.translate[axis] = interval * i - size;
@@ -92,6 +100,25 @@ function createWall(axis, offset, interval) {
 			update: function () {}
 		});
 	}
+}
+
+function createLine(axis, offset, interval) {
+	var size = gameSize - (axis==='z'?50:0);
+	var line = {
+		addTo: illo,
+		color: lightenDarkenColor(colors.background[level], -20),
+		width: axis === 'x' ? 2 * size : 1,
+		height: axis === 'x' ? 1 : 2 * size,
+		stroke: 1,
+		fill: true,
+		translate: {},
+		rotate: {x: TAU / 4},
+	};
+	line.translate[axis==='x'?'z':'x'] = offset;
+	nonPlayers.boundaries.push({
+		model: new Zdog.Rect(line),
+		update: function () {}
+	});
 }
 
 function changeRoom(x, z) {

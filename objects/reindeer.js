@@ -20,8 +20,8 @@ class Reindeer {
 		this.startSpeed = 0.7 + 0.5 * Math.random();
 		this.speed = this.startSpeed;
 		this.goalSpeed = this.speed;
-		this.matchPlayerAngle = 0.03;
-		this.matchAngle = 0.025;
+		this.matchAngle = 0.2 + 0.1 * Math.random();
+		this.matchPlayerAngle = 0.01 + 0.01 * Math.random();
 		this.deceleration = -0.01;
 		this.acceleration = 0.1;
 		
