@@ -2,7 +2,7 @@ class BadGuy extends LittleGuy {
 	constructor() {
 		super();
 		
-		this.maxSpeed = 2 * Math.random() + 0.9;
+		this.maxSpeed = (level < 3 ? level / 2 : 2) * Math.random() + 0.9;
 
 		this.model.color = this.arm1.color = this.arm2.color = colors.badGuys.shirt;
 	}
