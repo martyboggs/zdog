@@ -22,7 +22,10 @@ showMessage(introMessage + beginMessage, 120000);
 
 document.body.addEventListener('keydown', audioFixer, {once: true});
 document.body.addEventListener('click', audioFixer, {once: true});
+var audioFixed = false;
 function audioFixer(e) {
+	if (audioFixed) return;
+	audioFixed = true
 	$buzz.context().resume().then(function () {
 		paused = false;
 		music.play()
