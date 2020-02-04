@@ -19,8 +19,9 @@ var gameName = 'Super Doors';
 var introMessage = 'WASD or Arrow Keys, j for magic';
 var beginMessage = '<br>press any key to begin';
 showMessage(introMessage + beginMessage, 120000);
-document.body.addEventListener('keydown', audioFixer, {once: true});
 
+document.body.addEventListener('keydown', audioFixer, {once: true});
+document.body.addEventListener('click', audioFixer, {once: true});
 function audioFixer(e) {
 	$buzz.context().resume().then(function () {
 		paused = false;
