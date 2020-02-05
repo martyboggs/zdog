@@ -16,26 +16,14 @@ const DTOR = TAU / 360;
 let isSpinning = true;
 var frame = 0;
 var gameOver = false;
-var paused = true;
+var paused = false;
 var stopAttacking = false;
 var canFloat = ['reindeers', 'badGuys', 'littleGuys', 'turtles'];
 var gameName = 'Super Doors';
 var introMessage = 'WASD or Arrow Keys, j for magic';
 var beginMessage = '<br>press any key to begin';
-showMessage(introMessage + beginMessage, 120000);
-
-document.body.addEventListener('keydown', audioFixer, {once: true});
-document.body.addEventListener('click', audioFixer, {once: true});
-var audioFixed = false;
-function audioFixer(e) {
-	if (audioFixed) return;
-	audioFixed = true
-	$buzz.context().resume().then(function () {
-		paused = false;
-		music.play()
-		showMessage(introMessage, 3000);
-	});
-}
+showMessage(introMessage, 3000);
+music.play()
 
 var keys = { // 1 up, 2 down
 	w: 1,
