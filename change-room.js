@@ -106,10 +106,10 @@ function createLine(axis, offset, interval) {
 	var size = gameSize;
 	var line = {
 		addTo: illo,
-		color: lightenDarkenColor(colors.background[level], -20),
+		color: lightenDarkenColor(colors.background[level], -100) + '11',
 		width: axis === 'x' ? 2 * size : 1,
 		height: axis === 'x' ? 1 : 2 * size,
-		stroke: 1,
+		stroke: 2,
 		fill: true,
 		translate: {},
 		rotate: {x: TAU / 4},
