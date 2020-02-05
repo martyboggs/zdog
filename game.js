@@ -2,10 +2,14 @@
 // showmessage bug, gets hidden
 // collisions with inner walls
 // more complex gameplay, more items
-// sounds and music
 // animations open door, and winning
 // make enemies ignore sometimes.. make game harder
 // 
+// 13 14
+// 9  10
+
+// 16 15
+// 9  11
 
 const TAU = Zdog.TAU; // easier to read constant
 const DTOR = TAU / 360;

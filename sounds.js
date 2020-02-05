@@ -2,6 +2,7 @@ var music = $buzz({
 	src: 'sounds/zdog.wav',
 	loop: true,
 	volume: 0.5,
+	preload: true,
 });
 
 var magic = $buzz({
