@@ -2,7 +2,8 @@ class Turtle {
 	constructor() {
 		this.y0 = -9;
 		this.action = 'walking';
-		this.dyingFrame = 0; 
+		this.dyingFrame = 0;
+		this.eatingSound;
 
 		this.model = new Zdog.Rect({
 			addTo: illo,
@@ -61,6 +62,7 @@ class Turtle {
 					player.action = 'eating';
 					this.action = 'dying';
 					maps[level][room.z][room.x].turtles -= 1;
+					this.eatingSound = eat.play();
 				}
 		
 				this.model.translate.x += 0.1 * Math.cos(this.model.rotate.y);
@@ -82,25 +84,27 @@ class Turtle {
 				this.action = 'dying2';
 			break;
 			case 'dying2':
-				if (frame - this.dyingFrame < 40 && frame % 2) {
-					nonPlayers.particles.push(new Particle({
-						x: player.model.translate.x + 5 * Math.cos(player.model.rotate.y - TAU/4),
-						y: player.model.translate.y - 15,
-						z: player.model.translate.z + 5 * Math.sin(player.model.rotate.y - TAU/4)
-					}, {
-						x: Math.cos(player.model.rotate.y - TAU/4), 
-						y: 0, 
-						z: Math.sin(player.model.rotate.y - TAU/4)
-					}));
+				if (frame - this.dyingFrame < 40) {
+					if (frame % 2) {
+						nonPlayers.particles.push(new Particle({
+							x: player.model.translate.x + 5 * Math.cos(player.model.rotate.y - TAU/4),
+							y: player.model.translate.y - 15,
+							z: player.model.translate.z + 5 * Math.sin(player.model.rotate.y - TAU/4)
+						}, {
+							x: Math.cos(player.model.rotate.y - TAU/4), 
+							y: 0, 
+							z: Math.sin(player.model.rotate.y - TAU/4)
+						}));
+					}
 				}
 				this.model.translate.y = -15 + Math.abs((frame - this.dyingFrame) % 10 - 5);
 				if (frame - this.dyingFrame > 60) {
 					updatePower(500);
-					sound.play();
 					player.action = 'walking';
 					player.model.removeChild(this.model);
 					player.arm1.rotate.x = 0.9 * TAU;
 					player.arm2.rotate.x = 0.8 * TAU;
+					this.eatingSound.stop();
 					this.destroy();
 				}
 			break;

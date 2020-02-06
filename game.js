@@ -90,6 +90,7 @@ function updateHealth(change) {
 		player.health = 0;
 		stopAttacking = true;
 		player.action = 'dying';
+		lose.play();
 	} else {
 		document.getElementById('health').innerHTML = player.health;
 	}

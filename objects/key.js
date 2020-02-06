@@ -73,6 +73,7 @@ class Key {
 			player.model.addChild(this.model);
 			maps[level][room.z][room.x].keys -= 1;
 			player.key = this;
+			keysound.play();
 		}
 
 		if (this.shadow) {
