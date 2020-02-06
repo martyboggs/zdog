@@ -104,7 +104,8 @@ class Turtle {
 					player.model.removeChild(this.model);
 					player.arm1.rotate.x = 0.9 * TAU;
 					player.arm2.rotate.x = 0.8 * TAU;
-					this.eatingSound.stop();
+					eat.stop(this.eatingSound);
+					this.eatingSound = null;
 					this.destroy();
 				}
 			break;

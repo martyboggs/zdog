@@ -89,7 +89,7 @@ class Player extends LittleGuy {
 
 				if (this.sound) {
 					magic.stop(this.sound);
-					delete this.sound;
+					this.sound = null;
 				}
 
 				this.arm1.rotate.x += this.speed * DTOR * 5;
