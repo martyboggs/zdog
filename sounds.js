@@ -1,13 +1,14 @@
 var music = $buzz({
 	src: 'sounds/zdog.wav',
 	loop: true,
-	volume: 0.5,
+	volume: 0.3,
 	preload: true,
 });
 
 var magic = $buzz({
 	src: 'sounds/magic.wav',
 	loop: true,
+	volume: 0.8,
 	preload: true,
 });
 
@@ -25,6 +26,7 @@ var keysound = $buzz({
 var eat = $buzz({
 	src: 'sounds/eat.wav',
 	loop: true,
+	volume: 0.8,
 	preload: true,
 });
 
