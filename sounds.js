@@ -22,13 +22,18 @@ var keysound = $buzz({
 	preload: true,
 });
 
+var eat = $buzz({
+	src: 'sounds/eat.wav',
+	loop: true,
+	preload: true,
+});
+
 var lose = $buzz({
 	src: 'sounds/lose.wav',
 	preload: true,
 });
 
-var eat = $buzz({
-	src: 'sounds/eat.wav',
-	loop: true,
+var levelUp = $buzz({
+	src: 'sounds/levelUp.wav',
 	preload: true,
 });

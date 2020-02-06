@@ -38,6 +38,7 @@ class Door {
 			player.key.model.remove();
 			player.key = null;
 			paused = true;
+			levelUp.play();
 			// no changeRoom after you win... so
 			nonPlayers.keys.length = 0;
 			setTimeout(function () {
