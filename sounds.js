@@ -11,13 +11,12 @@ var magic = $buzz({
 	preload: true,
 });
 
-var sound = $buzz({
-	src: 'sounds/sound.wav',
+var hurt = $buzz({
+	src: 'sounds/hurt.wav',
 	preload: true,
 });
 
 var keysound = $buzz({
 	src: 'sounds/keysound.wav',
-	volume: 1.2,
 	preload: true,
 });

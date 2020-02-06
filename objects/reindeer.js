@@ -210,7 +210,7 @@ class Reindeer {
 			if (!gameOver && !stopAttacking && !player.stunnedTimer && collision(this.model, player.model, 10)) {
 				updateHealth(-1);
 				player.stunnedTimer = 30;
-
+				hurt.play();
 				player.model.translate.x += 30 * Math.cos(this.model.rotate.y);
 				player.model.translate.z += 30 * Math.sin(this.model.rotate.y);
 			}
