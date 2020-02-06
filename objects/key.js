@@ -26,7 +26,7 @@ class Key {
 			width: 3,
 			height: 1,
 			translate: {x: 3, y: 10},
-			stroke: 4,
+			stroke: 3,
 			color: colors.key,
 			fill: true,
 		});
