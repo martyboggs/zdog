@@ -58,7 +58,7 @@ var colors = {
 		skin: '#C00D19' || getRandomColor(),
 	},
 	badGuys: {
-		shirt: '' || getRandomColor(),
+		shirt: '#516544' || getRandomColor(),
 	},
 	steve: {
 		shirt: '#E7FB26' || getRandomColor(),
