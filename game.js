@@ -1,17 +1,18 @@
-// game title
 // showmessage bug, gets hidden
 // collisions with inner walls
-// more complex gameplay, more items
+// more complex gameplay, more items, level specific items
+// vary the maps
 // animations open door, and winning
 // make enemies ignore sometimes.. make game harder
+// fix music sound
 // 
-// 13 14
-// 9  10
+// canada is crazy
+// streetsweep
+// getaway
+// third person
+// Person Escape
 
-// 16 15
-// 9  11
-
-const TAU = Zdog.TAU; // easier to read constant
+const TAU = Zdog.TAU;
 const DTOR = TAU / 360;
 let isSpinning = true;
 var frame = 0;
